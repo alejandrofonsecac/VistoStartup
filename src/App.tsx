@@ -1,29 +1,51 @@
-import { useState } from 'react'
-import type { User, ViewName, Registro, Tarefa, Conversa, Aviso, Mensagem } from './types'
-import { USUARIOS, ALUNOS, TURMAS, REGISTROS_INICIAIS, TAREFAS_INICIAIS, CONVERSAS_INICIAIS, AVISOS_INICIAIS, CREDENCIAIS } from './data'
-import Login from './components/Login'
-import Layout from './components/Layout'
-import ResponsavelView from './view/ResponsavelView'
-import AlunoView from './view/AlunoView'
-import ProfessorView from './view/ProfessorView'
-import AdminView from './view/AdminView'
+import { useState } from "react"
+import type {
+  User,
+  ViewName,
+  Registro,
+  Tarefa,
+  Conversa,
+  Aviso,
+  Mensagem,
+} from "./types"
+import {
+  USUARIOS,
+  ALUNOS,
+  TURMAS,
+  REGISTROS_INICIAIS,
+  TAREFAS_INICIAIS,
+  CONVERSAS_INICIAIS,
+  AVISOS_INICIAIS,
+} from "./data"
+import Landing from "./components/Landing"
+import Login from "./components/Login"
+import Layout from "./components/Layout"
+import ResponsavelView from "./view/ResponsavelView"
+import AlunoView from "./view/AlunoView"
+import ProfessorView from "./view/ProfessorView"
+import AdminView from "./view/AdminView"
 
 function defaultView(role: string): ViewName {
-  if (role === 'admin') return 'painel'
-  return 'inicio'
+  if (role === "admin") return "painel"
+  return "inicio"
 }
 
 export default function App() {
+  const [showLanding, setShowLanding] = useState(true)
   const [currentUser, setCurrentUser] = useState<User | null>(null)
-  const [currentView, setCurrentView] = useState<ViewName>('inicio')
+  const [currentView, setCurrentView] = useState<ViewName>("inicio")
 
   // App state
   const [registros, setRegistros] = useState<Registro[]>(REGISTROS_INICIAIS)
   const [tarefas, setTarefas] = useState<Tarefa[]>(TAREFAS_INICIAIS)
   const [conversas, setConversas] = useState<Conversa[]>(CONVERSAS_INICIAIS)
   const [avisos, setAvisos] = useState<Aviso[]>(AVISOS_INICIAIS)
-  const [avisosVistos, setAvisosVistos] = useState<Set<string>>(new Set(['av3', 'av4']))
-  const [tarefasConcluidas, setTarefasConcluidas] = useState<Set<string>>(new Set())
+  const [avisosVistos, setAvisosVistos] = useState<Set<string>>(
+    new Set(["av3", "av4"]),
+  )
+  const [tarefasConcluidas, setTarefasConcluidas] = useState<Set<string>>(
+    new Set(),
+  )
 
   const handleLogin = (user: User) => {
     setCurrentUser(user)
@@ -32,22 +54,22 @@ export default function App() {
 
   const handleLogout = () => {
     setCurrentUser(null)
-    setCurrentView('inicio')
+    setCurrentView("inicio")
   }
 
   const handleViewChange = (view: ViewName) => {
     setCurrentView(view)
-    if (view === 'avisos') {
+    if (view === "avisos") {
       // Mark all currently visible avisos as seen on open
     }
   }
 
   const handleMarcarAvisoVisto = (id: string) => {
-    setAvisosVistos(prev => new Set([...prev, id]))
+    setAvisosVistos((prev) => new Set([...prev, id]))
   }
 
   const handleToggleTarefa = (id: string) => {
-    setTarefasConcluidas(prev => {
+    setTarefasConcluidas((prev) => {
       const next = new Set(prev)
       if (next.has(id)) next.delete(id)
       else next.add(id)
@@ -64,43 +86,62 @@ export default function App() {
       texto,
       dataHora: new Date().toISOString(),
     }
-    setConversas(prev => prev.map(c =>
-      c.id === conversaId ? { ...c, mensagens: [...c.mensagens, msg] } : c
-    ))
+    setConversas((prev) =>
+      prev.map((c) =>
+        c.id === conversaId ? { ...c, mensagens: [...c.mensagens, msg] } : c,
+      ),
+    )
   }
 
-  const handleNovoRegistro = (r: Omit<Registro, 'id' | 'vistoResponsavel'>) => {
-    const novo: Registro = { ...r, id: `r_${Date.now()}`, vistoResponsavel: false }
-    setRegistros(prev => [novo, ...prev])
+  const handleNovoRegistro = (r: Omit<Registro, "id" | "vistoResponsavel">) => {
+    const novo: Registro = {
+      ...r,
+      id: `r_${Date.now()}`,
+      vistoResponsavel: false,
+    }
+    setRegistros((prev) => [novo, ...prev])
   }
 
-  const handleNovaTarefa = (t: Omit<Tarefa, 'id'>) => {
+  const handleNovaTarefa = (t: Omit<Tarefa, "id">) => {
     const nova: Tarefa = { ...t, id: `ta_${Date.now()}` }
-    setTarefas(prev => [nova, ...prev])
+    setTarefas((prev) => [nova, ...prev])
   }
 
-  const handleNovoAviso = (titulo: string, texto: string, turmaId: string, urgente: boolean) => {
+  const handleNovoAviso = (
+    titulo: string,
+    texto: string,
+    turmaId: string,
+    urgente: boolean,
+  ) => {
     const novo: Aviso = {
       id: `av_${Date.now()}`,
       titulo,
       texto,
-      autor: currentUser?.nome ?? 'Professor',
+      autor: currentUser?.nome ?? "Professor",
       dataHora: new Date().toISOString(),
       turmaId,
       urgente,
     }
-    setAvisos(prev => [novo, ...prev])
+    setAvisos((prev) => [novo, ...prev])
   }
 
   // Count unread avisos for current user's context
-  const unreadAvisos = avisos.filter(a => !avisosVistos.has(a.id)).length
+  const unreadAvisos = avisos.filter((a) => !avisosVistos.has(a.id)).length
 
   if (!currentUser) {
-    return <Login onLogin={handleLogin} />
+    return showLanding ? (
+      <Landing onAccess={() => setShowLanding(false)} />
+    ) : (
+      <Login onLogin={handleLogin} onBack={() => setShowLanding(true)} />
+    )
   }
 
-  const filhos = ALUNOS.filter(a => currentUser.filhosIds?.includes(a.id) ?? false)
-  const alunoLogado = ALUNOS.find(a => a.turmaId === currentUser.turmaId && a.nome === currentUser.nome)
+  const filhos = ALUNOS.filter(
+    (a) => currentUser.filhosIds?.includes(a.id) ?? false,
+  )
+  const alunoLogado = ALUNOS.find(
+    (a) => a.turmaId === currentUser.turmaId && a.nome === currentUser.nome,
+  )
 
   return (
     <Layout
@@ -110,7 +151,7 @@ export default function App() {
       onLogout={handleLogout}
       unreadCount={unreadAvisos}
     >
-      {currentUser.role === 'responsavel' && (
+      {currentUser.role === "responsavel" && (
         <ResponsavelView
           user={currentUser}
           filhos={filhos}
@@ -125,7 +166,7 @@ export default function App() {
         />
       )}
 
-      {currentUser.role === 'aluno' && (
+      {currentUser.role === "aluno" && (
         <AlunoView
           user={currentUser}
           aluno={alunoLogado}
@@ -139,7 +180,7 @@ export default function App() {
         />
       )}
 
-      {currentUser.role === 'professor' && (
+      {currentUser.role === "professor" && (
         <ProfessorView
           user={currentUser}
           alunos={ALUNOS}
@@ -155,7 +196,7 @@ export default function App() {
         />
       )}
 
-      {currentUser.role === 'admin' && (
+      {currentUser.role === "admin" && (
         <AdminView
           user={currentUser}
           todos_usuarios={USUARIOS}

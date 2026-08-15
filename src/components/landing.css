@@ -229,7 +229,11 @@ button { font: inherit; }
 .profiles-section { padding: clamp(110px, 14vw, 200px) clamp(24px, 8vw, 128px); border-top: 1px solid var(--visto-border); }
 .profiles-title { max-width: 980px; }
 .profiles-title h2 { margin: 0; color: var(--visto-primary); font-size: clamp(2.25rem, 5vw, 4.6rem); line-height: 1.08; letter-spacing: -0.035em; }
-.profiles-title > p:last-child { max-width: 760px; margin: 28px 0 0; color: var(--visto-muted); font-size: 1.15rem; line-height: 1.65; }
+.profiles-lead { max-width: 760px; margin: 28px 0 0; color: var(--visto-muted); font-size: 1.15rem; line-height: 1.65; }
+.profile-scope-note { display: flex; align-items: flex-start; gap: 14px; max-width: 760px; margin-top: 34px; padding: 4px 0 4px 20px; border-left: 3px solid var(--visto-accent); }
+.profile-scope-note svg { flex: 0 0 auto; margin-top: 2px; color: var(--visto-accent); }
+.profile-scope-note p { margin: 0; color: var(--visto-muted); font-size: 0.95rem; line-height: 1.55; }
+.profile-scope-note strong { color: var(--visto-primary); }
 .profiles-flow { margin-top: 96px; border-top: 1px solid var(--visto-primary); }
 .profile-story { display: grid; grid-template-columns: minmax(210px, 0.42fr) minmax(0, 1fr); gap: clamp(48px, 7vw, 110px); padding: clamp(62px, 8vw, 106px) 0; border-bottom: 1px solid var(--visto-border); }
 .profile-visual { display: grid; align-content: start; justify-items: start; gap: 24px; padding-right: clamp(30px, 5vw, 76px); border-right: 1px solid var(--visto-border); color: var(--visto-accent); }
@@ -242,11 +246,12 @@ button { font: inherit; }
 .profile-role { margin: 0 0 18px; color: var(--visto-accent); font-family: "IBM Plex Mono", monospace; font-size: 0.875rem; }
 .profile-copy h3 { max-width: 720px; margin: 0; color: var(--visto-primary); font-size: clamp(1.8rem, 3.2vw, 3rem); line-height: 1.12; letter-spacing: -0.03em; }
 .profile-intro { max-width: 700px; margin: 24px 0 0; color: var(--visto-muted); font-size: 1.08rem; line-height: 1.65; }
-.profile-daily { margin-top: 34px; padding-top: 28px; border-top: 1px solid var(--visto-border); }
-.profile-daily > strong { color: var(--visto-primary); font-family: "Lexend", sans-serif; font-size: 0.95rem; }
-.profile-daily ul { display: grid; gap: 13px; margin: 18px 0 0; padding: 0; list-style: none; }
-.profile-daily li { display: flex; align-items: flex-start; gap: 11px; color: var(--visto-muted); line-height: 1.45; }
-.profile-daily li svg { flex: 0 0 auto; margin-top: 2px; color: var(--visto-positive); }
+.profile-modules { margin-top: 36px; padding-top: 27px; border-top: 1px solid var(--visto-border); }
+.profile-modules-label { margin: 0; color: var(--visto-accent); font-family: "IBM Plex Mono", monospace; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+.profile-modules ul { margin: 18px 0 0; padding: 0; list-style: none; border-bottom: 1px solid var(--visto-border); }
+.profile-modules li { display: grid; grid-template-columns: minmax(120px, 0.28fr) minmax(0, 1fr); gap: clamp(18px, 3vw, 38px); padding: 19px 0; border-top: 1px solid var(--visto-border); }
+.profile-modules li strong { color: var(--visto-primary); font-family: "Lexend", sans-serif; font-size: 0.94rem; line-height: 1.45; }
+.profile-modules li span { color: var(--visto-muted); line-height: 1.55; }
 .profile-outcome { display: flex; align-items: flex-start; gap: 11px; margin: 30px 0 0; color: var(--visto-primary); font-weight: 700; line-height: 1.5; }
 .profile-outcome svg { flex: 0 0 auto; margin-top: 3px; color: var(--visto-accent); }
 
@@ -336,7 +341,7 @@ button { font: inherit; }
   .profile-visual > p { max-width: none; font-size: 1.1rem; }
   .profile-copy h3 { font-size: clamp(1.8rem, 8.4vw, 2.55rem); }
   .profile-intro { font-size: 1.03rem; }
-
+  .profile-modules li { grid-template-columns: 1fr; gap: 7px; padding: 17px 0; }
   .final-invite { margin: 0 12px 30px; padding: 84px 20px; }
   .final-invite h2 { font-size: clamp(2.8rem, 13vw, 4.4rem); }
   .final-cta { width: 100%; }

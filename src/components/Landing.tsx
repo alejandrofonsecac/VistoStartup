@@ -50,62 +50,109 @@ const journey = [
 const profiles = [
   {
     role: "Professores",
-    stage: "O contexto nasce aqui",
-    title: "Registram enquanto a experiência ainda está viva.",
-    copy: "Depois de uma aula, o professor transforma uma percepção em um registro compreensível — sem depender da memória ou esperar a próxima reunião.",
-    daily: [
-      "Reconhecer participação, evolução e pontos de atenção.",
-      "Publicar tarefas com prazo e orientação no mesmo lugar.",
-      "Abrir uma conversa com o contexto já registrado.",
+    stage: "Quem registra e comunica",
+    title: "Da observação em sala ao acompanhamento contínuo.",
+    copy: "A experiência atual reúne a rotina das turmas, a produção de registros pedagógicos, a publicação de atividades e a comunicação com as famílias.",
+    modules: [
+      {
+        name: "Turmas",
+        description:
+          "Visualizar as turmas vinculadas, os alunos de cada grupo, a quantidade de registros e situações marcadas como importantes.",
+      },
+      {
+        name: "Novo Registro",
+        description:
+          "Selecionar um aluno, registrar uma observação e classificá-la como comportamento, desempenho, aviso, elogio ou participação, com prioridade normal ou importante.",
+      },
+      {
+        name: "Nova Tarefa",
+        description:
+          "Publicar atividades por turma com título, descrição, disciplina, data de entrega e materiais necessários.",
+      },
+      {
+        name: "Recados",
+        description:
+          "Enviar comunicados para uma turma ou para todas, incluindo a possibilidade de destacar mensagens urgentes.",
+      },
+      {
+        name: "Chat",
+        description:
+          "Manter conversas individuais com responsáveis, organizadas pelo aluno acompanhado.",
+      },
     ],
-    outcome: "Menos reconstrução do passado. Mais continuidade pedagógica.",
+    outcome:
+      "O professor consegue transformar acontecimentos cotidianos em informação útil para alunos, famílias e escola.",
     Icon: PenLine,
     side: "left",
   },
   {
-    role: "Alunos",
-    stage: "O próximo passo aparece",
-    title: "Sabem o que aconteceu e o que precisam fazer agora.",
-    copy: "O aluno encontra tarefas, avisos e registros em uma leitura direta. Em vez de procurar informações espalhadas, ele enxerga uma sequência possível de acompanhar.",
-    daily: [
-      "Consultar tarefas e datas sem depender de lembretes paralelos.",
-      "Rever orientações e observações com clareza.",
-      "Perceber o próprio progresso ao longo do tempo.",
+    role: "Pais e responsáveis",
+    stage: "Quem acompanha e conversa",
+    title: "O cotidiano escolar chega com contexto, autoria e próximos passos.",
+    copy: "Pais e responsáveis encontram uma visão organizada para cada filho, acompanhando registros, atividades, comunicados e conversas sem reunir informações dispersas.",
+    modules: [
+      {
+        name: "Início",
+        description:
+          "Alternar entre filhos, verificar registros importantes ainda não vistos, consultar acontecimentos recentes e próximas tarefas.",
+      },
+      {
+        name: "Histórico",
+        description:
+          "Consultar todos os registros do aluno e filtrar por comportamento, desempenho, aviso, elogio ou participação, preservando professor, data, hora e prioridade.",
+      },
+      {
+        name: "Tarefas",
+        description:
+          "Acompanhar título, disciplina, descrição, professor, prazo e materiais necessários, com destaque para entregas próximas.",
+      },
+      {
+        name: "Chat",
+        description:
+          "Conversar de forma privada com professores, mantendo cada diálogo relacionado ao filho e à disciplina correspondente.",
+      },
+      {
+        name: "Avisos",
+        description:
+          "Receber comunicados da escola ou da turma, identificar mensagens novas e urgentes e marcá-las como lidas.",
+      },
     ],
     outcome:
-      "Mais autonomia para organizar a rotina e participar do próprio processo.",
-    Icon: BookOpenCheck,
-    side: "right",
-  },
-  {
-    role: "Responsáveis",
-    stage: "A família acompanha",
-    title: "Participam sem precisar montar o contexto por conta própria.",
-    copy: "A família recebe a informação com autoria, momento e continuidade. Assim, uma observação deixa de ser uma mensagem isolada e se torna parte do acompanhamento.",
-    daily: [
-      "Acompanhar conquistas, dificuldades e tarefas relevantes.",
-      "Entender quem registrou e quando aquilo aconteceu.",
-      "Conversar com a escola a partir do mesmo contexto.",
-    ],
-    outcome:
-      "Menos ruído entre escola e família. Mais presença nas decisões do dia a dia.",
+      "A família participa com informação verificável e consegue conversar com a escola a partir do mesmo contexto.",
     Icon: UsersRound,
-    side: "left",
+    side: "right",
   },
   {
-    role: "Coordenação",
-    stage: "A visão se amplia",
-    title: "Enxerga padrões antes que situações virem urgências.",
-    copy: "Com registros, pessoas, turmas e alertas organizados, a coordenação deixa de depender apenas de relatos pontuais para compreender o que merece atenção.",
-    daily: [
-      "Acompanhar movimentações relevantes entre turmas e perfis.",
-      "Identificar alertas e recorrências com rastreabilidade.",
-      "Apoiar professores e famílias com informações consistentes.",
+    role: "Coordenação e agentes escolares",
+    stage: "Quem acompanha o conjunto",
+    title: "Uma visão ampliada para reconhecer padrões e prioridades.",
+    copy: "No código atual, essa experiência aparece como Coordenação. Ela apoia agentes responsáveis pelo acompanhamento geral da escola, sem definir ainda uma política final de permissões.",
+    modules: [
+      {
+        name: "Painel Geral",
+        description:
+          "Acompanhar totais de alunos e turmas, registros da semana, alertas pendentes e recados publicados recentemente.",
+      },
+      {
+        name: "Usuários",
+        description:
+          "Consultar pessoas cadastradas, filtrar por perfil e visualizar informações como e-mail, turma do aluno ou disciplina do professor.",
+      },
+      {
+        name: "Turmas",
+        description:
+          "Visualizar a composição de cada turma, seus alunos, professores vinculados, disciplinas e quantidades.",
+      },
+      {
+        name: "Alertas",
+        description:
+          "Centralizar registros importantes ainda não visualizados pelos responsáveis, com aluno, turma, categoria, autoria e data.",
+      },
     ],
     outcome:
-      "Decisões mais rápidas, fundamentadas e conectadas à realidade escolar.",
+      "A coordenação encontra sinais que merecem atenção e pode apoiar professores e famílias com mais rastreabilidade.",
     Icon: ShieldCheck,
-    side: "right",
+    side: "left",
   },
 ]
 
@@ -388,16 +435,24 @@ export default function Landing(_: LandingProps) {
           aria-labelledby="profiles-title"
         >
           <div className="profiles-title" data-reveal="left">
-            <p className="section-index">Da informação à ação</p>
+            <p className="section-index">Possibilidades por perfil</p>
             <h2 id="profiles-title">
-              A mesma informação acompanha cada pessoa sem perder o contexto.
+              Três perspectivas diferentes dentro da mesma plataforma.
             </h2>
-            <p>
-              A Visto não cria quatro experiências desconectadas. Ela organiza
-              um fluxo único: o que começa como registro ganha continuidade na
-              rotina do aluno, aproxima a família e amplia a visão da
-              coordenação.
+            <p className="profiles-lead">
+              O fluxo continua conectado: professores registram e comunicam,
+              famílias acompanham e conversam, enquanto a coordenação observa o
+              conjunto. Cada área abaixo traduz os módulos que já existem na
+              experiência atual.
             </p>
+            <div className="profile-scope-note" role="note">
+              <ShieldCheck size={20} aria-hidden="true" />
+              <p>
+                <strong>Escopo em construção.</strong> Estas são possibilidades
+                observadas no sistema atual — não regras definitivas de
+                permissionamento.
+              </p>
+            </div>
           </div>
           <div className="profiles-flow">
             {profiles.map(({ Icon, ...profile }, index) => (
@@ -413,17 +468,19 @@ export default function Landing(_: LandingProps) {
                 </div>
                 <div className="profile-copy">
                   <p className="profile-role">
-                    Para {profile.role.toLowerCase()}
+                    Possibilidades para {profile.role.toLowerCase()}
                   </p>
                   <h3>{profile.title}</h3>
                   <p className="profile-intro">{profile.copy}</p>
-                  <div className="profile-daily">
-                    <strong>No dia a dia</strong>
+                  <div className="profile-modules">
+                    <p className="profile-modules-label">
+                      O que os módulos permitem hoje
+                    </p>
                     <ul>
-                      {profile.daily.map((item) => (
-                        <li key={item}>
-                          <Check size={17} aria-hidden="true" />
-                          <span>{item}</span>
+                      {profile.modules.map((module) => (
+                        <li key={module.name}>
+                          <strong>{module.name}</strong>
+                          <span>{module.description}</span>
                         </li>
                       ))}
                     </ul>
@@ -448,7 +505,7 @@ export default function Landing(_: LandingProps) {
               height="220"
             />
           </div>
-          <p>Quatro perspectivas. Um mesmo contexto.</p>
+          <p>Três perspectivas. Um mesmo contexto.</p>
           <h2>
             Quando todos enxergam o caminho, cada esforço ganha continuidade.
           </h2>
@@ -456,8 +513,8 @@ export default function Landing(_: LandingProps) {
             Rever como a informação circula <ArrowRight size={20} />
           </a>
           <div className="invite-audience">
-            <UsersRound size={17} /> Para responsáveis, alunos, professores e
-            coordenação.
+            <UsersRound size={17} /> Para professores, pais e responsáveis,
+            coordenação e agentes escolares.
           </div>
         </section>
       </main>

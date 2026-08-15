@@ -86,6 +86,33 @@ const profiles = [
     side: "left",
   },
   {
+    role: "Alunos",
+    stage: "Quem organiza os próximos passos",
+    title: "Atividades e comunicados reunidos em uma rotina acompanhável.",
+    copy: "A experiência do aluno concentra o que precisa ser visto e realizado, destacando prazos, materiais, avisos recentes e atividades já concluídas.",
+    modules: [
+      {
+        name: "Início",
+        description:
+          "Consultar avisos recentes, identificar novos comunicados e visualizar as próximas entregas ainda pendentes.",
+      },
+      {
+        name: "Tarefas",
+        description:
+          "Acompanhar atividades por prazo, disciplina e professor, consultar descrição e materiais, marcar tarefas como concluídas e rever o que já foi finalizado.",
+      },
+      {
+        name: "Avisos",
+        description:
+          "Receber recados da escola ou da turma, reconhecer mensagens novas e urgentes e marcá-las como lidas.",
+      },
+    ],
+    outcome:
+      "O aluno encontra uma visão direta da rotina e ganha mais autonomia para acompanhar suas responsabilidades.",
+    Icon: BookOpenCheck,
+    side: "right",
+  },
+  {
     role: "Pais e responsáveis",
     stage: "Quem acompanha e conversa",
     title: "O cotidiano escolar chega com contexto, autoria e próximos passos.",
@@ -120,13 +147,13 @@ const profiles = [
     outcome:
       "A família participa com informação verificável e consegue conversar com a escola a partir do mesmo contexto.",
     Icon: UsersRound,
-    side: "right",
+    side: "left",
   },
   {
-    role: "Coordenação e agentes escolares",
+    role: "Coordenação",
     stage: "Quem acompanha o conjunto",
     title: "Uma visão ampliada para reconhecer padrões e prioridades.",
-    copy: "No código atual, essa experiência aparece como Coordenação. Ela apoia agentes responsáveis pelo acompanhamento geral da escola, sem definir ainda uma política final de permissões.",
+    copy: "A experiência da coordenação reúne indicadores, pessoas, turmas e alertas para apoiar o acompanhamento geral da escola, sem definir ainda uma política final de permissões.",
     modules: [
       {
         name: "Painel Geral",
@@ -152,7 +179,7 @@ const profiles = [
     outcome:
       "A coordenação encontra sinais que merecem atenção e pode apoiar professores e famílias com mais rastreabilidade.",
     Icon: ShieldCheck,
-    side: "left",
+    side: "right",
   },
 ]
 
@@ -444,15 +471,15 @@ export default function Landing({ onAccess }: LandingProps) {
           aria-labelledby="profiles-title"
         >
           <div className="profiles-title" data-reveal="left">
-            <p className="section-index">Possibilidades por perfil</p>
+            <p className="section-index">Funções e tipos de usuário</p>
             <h2 id="profiles-title">
-              Três perspectivas diferentes dentro da mesma plataforma.
+              Quatro perfis. Cada um com uma função clara na mesma plataforma.
             </h2>
             <p className="profiles-lead">
-              O fluxo continua conectado: professores registram e comunicam,
-              famílias acompanham e conversam, enquanto a coordenação observa o
-              conjunto. Cada área abaixo traduz os módulos que já existem na
-              experiência atual.
+              Professores registram e comunicam, alunos organizam seus próximos
+              passos, famílias acompanham e conversam, enquanto a coordenação
+              observa o conjunto. Cada área abaixo traduz os módulos que já
+              existem na experiência atual.
             </p>
             <div className="profile-scope-note" role="note">
               <ShieldCheck size={20} aria-hidden="true" />
@@ -469,6 +496,7 @@ export default function Landing({ onAccess }: LandingProps) {
                 className="profile-story"
                 data-reveal={profile.side}
                 key={profile.role}
+                aria-labelledby={`profile-title-${index}`}
               >
                 <div className="profile-visual">
                   <span className="profile-number">0{index + 1}</span>
@@ -476,10 +504,9 @@ export default function Landing({ onAccess }: LandingProps) {
                   <p>{profile.stage}</p>
                 </div>
                 <div className="profile-copy">
-                  <p className="profile-role">
-                    Possibilidades para {profile.role.toLowerCase()}
-                  </p>
-                  <h3>{profile.title}</h3>
+                  <p className="profile-role">Perfil de usuário</p>
+                  <h3 id={`profile-title-${index}`}>{profile.role}</h3>
+                  <p className="profile-headline">{profile.title}</p>
                   <p className="profile-intro">{profile.copy}</p>
                   <div className="profile-modules">
                     <p className="profile-modules-label">
@@ -514,7 +541,7 @@ export default function Landing({ onAccess }: LandingProps) {
               height="220"
             />
           </div>
-          <p>Três perspectivas. Um mesmo contexto.</p>
+          <p>Quatro perspectivas. Um mesmo contexto.</p>
           <h2>
             Quando todos enxergam o caminho, cada esforço ganha continuidade.
           </h2>
@@ -522,8 +549,8 @@ export default function Landing({ onAccess }: LandingProps) {
             Explorar a demonstração <ArrowRight size={20} />
           </button>
           <div className="invite-audience">
-            <UsersRound size={17} /> Para professores, pais e responsáveis,
-            coordenação e agentes escolares.
+            <UsersRound size={17} /> Para pais e responsáveis, alunos,
+            professores e coordenação.
           </div>
         </section>
       </main>

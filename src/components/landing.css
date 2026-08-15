@@ -245,7 +245,8 @@ button { font: inherit; }
 .profile-copy { max-width: 760px; }
 .profile-role { margin: 0 0 18px; color: var(--visto-accent); font-family: "IBM Plex Mono", monospace; font-size: 0.875rem; }
 .profile-copy h3 { max-width: 720px; margin: 0; color: var(--visto-primary); font-size: clamp(1.8rem, 3.2vw, 3rem); line-height: 1.12; letter-spacing: -0.03em; }
-.profile-intro { max-width: 700px; margin: 24px 0 0; color: var(--visto-muted); font-size: 1.08rem; line-height: 1.65; }
+.profile-headline { max-width: 700px; margin: 18px 0 0; color: var(--visto-text); font-family: "Lexend", sans-serif; font-size: clamp(1.12rem, 1.8vw, 1.35rem); font-weight: 700; line-height: 1.42; text-wrap: balance; }
+.profile-intro { max-width: 700px; margin: 18px 0 0; color: var(--visto-muted); font-size: 1.08rem; line-height: 1.65; }
 .profile-modules { margin-top: 36px; padding-top: 27px; border-top: 1px solid var(--visto-border); }
 .profile-modules-label { margin: 0; color: var(--visto-accent); font-family: "IBM Plex Mono", monospace; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
 .profile-modules ul { margin: 18px 0 0; padding: 0; list-style: none; border-bottom: 1px solid var(--visto-border); }

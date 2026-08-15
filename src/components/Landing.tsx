@@ -14,7 +14,7 @@ import {
 import "./landing.css"
 
 interface LandingProps {
-  onAccess?: () => void
+  onAccess: () => void
 }
 
 const journey = [
@@ -156,7 +156,7 @@ const profiles = [
   },
 ]
 
-export default function Landing(_: LandingProps) {
+export default function Landing({ onAccess }: LandingProps) {
   const rootRef = useRef<HTMLDivElement>(null)
   const [scrolled, setScrolled] = useState(false)
 
@@ -218,6 +218,11 @@ export default function Landing(_: LandingProps) {
     }
   }, [])
 
+  const accessDemo = () => {
+    window.scrollTo({ top: 0, behavior: "auto" })
+    onAccess()
+  }
+
   return (
     <div className="visto-landing" ref={rootRef}>
       <a className="skip-link" href="#conteudo">
@@ -244,9 +249,9 @@ export default function Landing(_: LandingProps) {
           <a href="#proposito">Por que a Visto</a>
           <a href="#perfis">Perfis e rotina</a>
         </nav>
-        <a className="nav-access" href="#perfis">
-          Ver os perfis <ArrowRight size={17} />
-        </a>
+        <button className="nav-access" type="button" onClick={accessDemo}>
+          Ver demonstração <ArrowRight size={17} />
+        </button>
       </header>
 
       <main id="conteudo">
@@ -271,9 +276,13 @@ export default function Landing(_: LandingProps) {
               cuida.
             </p>
             <div className="hero-actions">
-              <a className="primary-cta" href="#perfis">
-                Ver como a Visto ajuda <ArrowRight size={19} />
-              </a>
+              <button
+                className="primary-cta"
+                type="button"
+                onClick={accessDemo}
+              >
+                Explorar demonstração <ArrowRight size={19} />
+              </button>
               <a className="text-link" href="#como-funciona">
                 Acompanhar a jornada <ChevronDown size={17} />
               </a>
@@ -509,9 +518,9 @@ export default function Landing(_: LandingProps) {
           <h2>
             Quando todos enxergam o caminho, cada esforço ganha continuidade.
           </h2>
-          <a className="final-cta" href="#como-funciona">
-            Rever como a informação circula <ArrowRight size={20} />
-          </a>
+          <button className="final-cta" type="button" onClick={accessDemo}>
+            Explorar a demonstração <ArrowRight size={20} />
+          </button>
           <div className="invite-audience">
             <UsersRound size={17} /> Para professores, pais e responsáveis,
             coordenação e agentes escolares.
@@ -534,9 +543,9 @@ export default function Landing(_: LandingProps) {
           />
         </a>
         <p>Clareza para acompanhar. Presença para reconhecer.</p>
-        <a className="footer-action" href="#perfis">
-          Conhecer os perfis <ArrowRight size={16} />
-        </a>
+        <button className="footer-action" type="button" onClick={accessDemo}>
+          Abrir demonstração <ArrowRight size={16} />
+        </button>
       </footer>
     </div>
   )

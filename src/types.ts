@@ -4,6 +4,7 @@ export type ViewName =
   | 'inicio'
   | 'timeline'
   | 'tarefas'
+  | 'notas'
   | 'chat'
   | 'avisos'
   | 'registros'
@@ -53,6 +54,7 @@ export interface Registro {
 
 export interface Tarefa {
   id: string
+  alunoId?: string
   titulo: string
   descricao: string
   materia: string
@@ -60,6 +62,8 @@ export interface Tarefa {
   dataEntrega: string
   materialNecessario: string
   turmaId: string
+  concluida?: boolean
+  concluidaEm?: string | null
 }
 
 export interface Mensagem {
@@ -103,4 +107,21 @@ export interface CalendarEvent {
   subject: string
   teacher: string
   description: string
+}
+
+export type Trimester = 1 | 2 | 3
+
+export interface GradeAssessment {
+  id: string
+  name: string
+  grade: number | null
+  date: string | null
+  type: 'regular' | 'recovery'
+}
+
+export interface SubjectGrade {
+  id: string
+  name: string
+  teacher: string
+  assessments: GradeAssessment[]
 }

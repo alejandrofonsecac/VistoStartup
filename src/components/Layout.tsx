@@ -1,4 +1,4 @@
-import { GraduationCap, Home, Clock, BookOpen, MessageCircle, Bell, PenLine, Megaphone, LayoutDashboard, Users, School, AlertTriangle, LogOut, CalendarDays } from 'lucide-react'
+import { GraduationCap, Home, Clock, BookOpen, MessageCircle, Bell, PenLine, Megaphone, LayoutDashboard, Users, School, AlertTriangle, LogOut, CalendarDays, ClipboardCheck } from 'lucide-react'
 import type { User, ViewName } from '../types'
 
 interface NavItem {
@@ -15,6 +15,7 @@ function getNavItems(role: string): NavItem[] {
         { view: 'inicio', label: 'Início', icon: <Home size={18} /> },
         { view: 'timeline', label: 'Histórico', icon: <Clock size={18} /> },
         { view: 'tarefas', label: 'Tarefas', icon: <BookOpen size={18} /> },
+        { view: 'notas', label: 'Notas', icon: <ClipboardCheck size={18} /> },
         { view: 'inicio', label: 'Calendário', icon: <CalendarDays size={18} />, calendarAction: true },
         { view: 'chat', label: 'Chat', icon: <MessageCircle size={18} /> },
         { view: 'avisos', label: 'Avisos', icon: <Bell size={18} /> },

@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import type { User, ViewName, Registro, Tarefa, Conversa, Aviso, Mensagem } from './types'
+import type { User, ViewName, Registro, Tarefa, Conversa, Aviso, Mensagem, CalendarEvent } from './types'
 import { USUARIOS, ALUNOS, TURMAS, REGISTROS_INICIAIS, TAREFAS_INICIAIS, CONVERSAS_INICIAIS, AVISOS_INICIAIS } from './data'
 import { CALENDAR_EVENTS } from './data/calendarEvents'
 import Login from './components/Login'
 import Layout from './components/Layout'
 import CalendarModal from './components/calendar/CalendarModal'
-import { dateKey, monthStart } from './components/calendar/CalendarMonth'
+import { dateKey, monthStart, parseDateKey } from './components/calendar/CalendarMonth'
 import ResponsavelView from './view/ResponsavelView'
 import AlunoView from './view/AlunoView'
 import ProfessorView from './view/ProfessorView'
@@ -128,6 +128,13 @@ export default function App() {
     setCalendarSelectedEventId(null)
   }
 
+  const handleOpenCalendarEvent = (event: CalendarEvent) => {
+    setCalendarMonth(monthStart(parseDateKey(event.date)))
+    setCalendarSelectedDate(event.date)
+    setCalendarSelectedEventId(event.id)
+    setIsCalendarOpen(true)
+  }
+
   return (
     <>
     <Layout
@@ -158,6 +165,7 @@ export default function App() {
           onCalendarMonthChange={setCalendarMonth}
           onCalendarDateChange={handleCalendarDateChange}
           onOpenCalendar={() => setIsCalendarOpen(true)}
+          onOpenCalendarEvent={handleOpenCalendarEvent}
         />
       )}
 

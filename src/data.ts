@@ -101,6 +101,38 @@ export const TAREFAS_INICIAIS: Tarefa[] = [
     materia: 'Português', professorNome: 'Prof. Roberto Ferreira', dataEntrega: '2026-08-28',
     materialNecessario: 'Caderno de Português', turmaId: 't2',
   },
+  {
+    id: 'th1', alunoId: 'a1', titulo: 'Produção textual: Crônica', descricao: 'Escrever uma crônica sobre uma situação do cotidiano, com título e revisão ortográfica.',
+    materia: 'Português', professorNome: 'Prof. Roberto Ferreira', dataEntrega: '2026-08-10', materialNecessario: 'Caderno de Português', turmaId: 't1', concluida: true, concluidaEm: '2026-08-09',
+  },
+  {
+    id: 'th2', alunoId: 'a1', titulo: 'Lista de exercícios: Frações', descricao: 'Resolver a lista de frações e proporções entregue pela professora.',
+    materia: 'Matemática', professorNome: 'Profa. Ana Costa', dataEntrega: '2026-08-12', materialNecessario: 'Lista impressa', turmaId: 't1', concluida: false, concluidaEm: null,
+  },
+  {
+    id: 'th3', alunoId: 'a1', titulo: 'Pesquisa sobre Brasil Colônia', descricao: 'Preparar um resumo com os principais acontecimentos do período colonial.',
+    materia: 'História', professorNome: 'Prof. Marcos Andrade', dataEntrega: '2026-08-07', materialNecessario: 'Caderno de História', turmaId: 't1', concluida: true, concluidaEm: '2026-08-07',
+  },
+  {
+    id: 'th4', alunoId: 'a1', titulo: 'Experimento: Ciclo da água', descricao: 'Registrar as observações do experimento realizado em sala.',
+    materia: 'Ciências', professorNome: 'Profa. Lúcia Pires', dataEntrega: '2026-08-04', materialNecessario: 'Folha de atividades', turmaId: 't1', concluida: true, concluidaEm: '2026-08-03',
+  },
+  {
+    id: 'th5', alunoId: 'a2', titulo: 'Produção textual: Carta', descricao: 'Produzir uma carta pessoal respeitando a estrutura estudada em sala.',
+    materia: 'Português', professorNome: 'Prof. Roberto Ferreira', dataEntrega: '2026-08-11', materialNecessario: 'Caderno de Português', turmaId: 't2', concluida: true, concluidaEm: '2026-08-10',
+  },
+  {
+    id: 'th6', alunoId: 'a2', titulo: 'Lista de exercícios: Multiplicação', descricao: 'Resolver os exercícios de multiplicação e divisão indicados no livro.',
+    materia: 'Matemática', professorNome: 'Profa. Ana Costa', dataEntrega: '2026-08-08', materialNecessario: 'Livro didático', turmaId: 't2', concluida: false, concluidaEm: null,
+  },
+  {
+    id: 'th7', alunoId: 'a2', titulo: 'Trabalho: Ecossistemas brasileiros', descricao: 'Criar um cartaz com informações sobre um ecossistema brasileiro.',
+    materia: 'Ciências', professorNome: 'Profa. Lúcia Pires', dataEntrega: '2026-08-06', materialNecessario: 'Cartolina e canetas', turmaId: 't2', concluida: true, concluidaEm: '2026-08-05',
+  },
+  {
+    id: 'th8', alunoId: 'a2', titulo: 'Leitura: Contos populares', descricao: 'Ler os contos indicados e responder às perguntas de interpretação.',
+    materia: 'Português', professorNome: 'Prof. Roberto Ferreira', dataEntrega: '2026-08-02', materialNecessario: 'Livro de leitura', turmaId: 't2', concluida: true, concluidaEm: '2026-08-02',
+  },
 ]
 
 export const CONVERSAS_INICIAIS: Conversa[] = [

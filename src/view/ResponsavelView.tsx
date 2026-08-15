@@ -3,6 +3,8 @@ import { CheckCircle2, BookOpen, AlertTriangle, Send, User } from 'lucide-react'
 import type { User as UserType, Aluno, Registro, Tarefa, Conversa, Aviso, ViewName, CalendarEvent } from '../types'
 import { PageHeader, Card, CategoriaBadge, formatDate, formatTime, formatDateShort } from '../components/Layout'
 import CalendarMini from '../components/calendar/CalendarMini'
+import NextActivityCard from '../components/calendar/NextActivityCard'
+import NotasView from './NotasView'
 
 interface Props {
   user: UserType
@@ -23,12 +25,13 @@ interface Props {
   onCalendarMonthChange: (month: Date) => void
   onCalendarDateChange: (date: string) => void
   onOpenCalendar: () => void
+  onOpenCalendarEvent: (event: CalendarEvent) => void
 }
 
 export default function ResponsavelView({
   user, filhos, filhoSelecionado, onFilhoSelecionado, registros, tarefas, conversas, avisos,
   avisosVistos, onMarcarAvisoVisto, onEnviarMensagem, currentView,
-  calendarEvents, calendarMonth, calendarSelectedDate, onCalendarMonthChange, onCalendarDateChange, onOpenCalendar,
+  calendarEvents, calendarMonth, calendarSelectedDate, onCalendarMonthChange, onCalendarDateChange, onOpenCalendar, onOpenCalendarEvent,
 }: Props) {
   const [filtro, setFiltro] = useState<string>('Todos')
   const filho = filhos.find(f => f.id === filhoSelecionado) ?? filhos[0]
@@ -158,7 +161,7 @@ export default function ResponsavelView({
             </div>
           )}
           </div>
-          <div className="xl:sticky xl:top-6">
+          <div className="space-y-3 xl:sticky xl:top-6">
             <CalendarMini
               studentName={filho?.nome ?? 'aluno'}
               month={calendarMonth}
@@ -168,10 +171,15 @@ export default function ResponsavelView({
               onSelectDate={onCalendarDateChange}
               onOpen={onOpenCalendar}
             />
+            <NextActivityCard events={calendarEvents} onOpenEvent={onOpenCalendarEvent} />
           </div>
         </div>
       </div>
     )
+  }
+
+  if (currentView === 'notas') {
+    return <NotasView filhos={filhos} filhoSelecionado={filhoSelecionado} onFilhoSelecionado={onFilhoSelecionado} />
   }
 
   if (currentView === 'timeline') {

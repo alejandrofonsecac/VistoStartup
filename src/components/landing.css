@@ -118,7 +118,6 @@ button { font: inherit; }
   border-bottom: 1px solid var(--visto-border);
 }
 .hero-copy { position: relative; z-index: 2; max-width: 750px; }
-.hero-kicker,
 .section-index {
   display: flex;
   align-items: center;
@@ -129,20 +128,15 @@ button { font: inherit; }
   font-size: 0.875rem;
   font-weight: 500;
 }
-.hero-kicker span { width: 26px; height: 1px; background: currentColor; }
 .hero-copy h1 { margin: 0; color: var(--visto-primary); font-size: clamp(3.6rem, 7vw, 6rem); line-height: 0.98; letter-spacing: -0.04em; }
 .hero-copy h1 span { display: block; }
 .hero-copy h1 em { position: relative; color: var(--visto-accent); font-style: normal; }
 .hero-copy h1 em::after { content: ""; position: absolute; left: 0.03em; right: 0; bottom: -0.08em; height: 3px; background: currentColor; transform-origin: left; animation: hero-line 900ms 700ms cubic-bezier(.16,1,.3,1) both; }
-.hero-lead { max-width: 660px; margin: 34px 0 0; color: var(--visto-muted); font-size: clamp(1.1rem, 1.7vw, 1.28rem); line-height: 1.62; }
 .hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 24px; margin-top: 34px; }
 .primary-cta { min-height: 54px; padding: 0 24px; font-size: 1rem; }
 .text-link { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--visto-primary) !important; font-weight: 700; }
 .text-link svg { transition: transform 180ms ease; }
 .text-link:hover svg { transform: translateY(3px); }
-.hero-note { display: flex; align-items: center; gap: 8px; margin: 25px 0 0; color: var(--visto-muted); font-size: 0.9rem; }
-.hero-note svg { color: var(--visto-positive); }
-
 .hero-proof { position: relative; isolation: isolate; min-height: 560px; transform: translateY(calc(var(--drift, 0) * -18px)); transition: transform 120ms linear; }
 .proof-orbit { position: absolute; z-index: -1; border: 1px solid #cfd6d7; border-radius: 50%; }
 .orbit-one { inset: 20px -150px 20px 30px; }
@@ -230,10 +224,6 @@ button { font: inherit; }
 .profiles-title { max-width: 980px; }
 .profiles-title h2 { margin: 0; color: var(--visto-primary); font-size: clamp(2.25rem, 5vw, 4.6rem); line-height: 1.08; letter-spacing: -0.035em; }
 .profiles-lead { max-width: 760px; margin: 28px 0 0; color: var(--visto-muted); font-size: 1.15rem; line-height: 1.65; }
-.profile-scope-note { display: flex; align-items: flex-start; gap: 14px; max-width: 760px; margin-top: 34px; padding: 4px 0 4px 20px; border-left: 3px solid var(--visto-accent); }
-.profile-scope-note svg { flex: 0 0 auto; margin-top: 2px; color: var(--visto-accent); }
-.profile-scope-note p { margin: 0; color: var(--visto-muted); font-size: 0.95rem; line-height: 1.55; }
-.profile-scope-note strong { color: var(--visto-primary); }
 .profiles-flow { margin-top: 96px; border-top: 1px solid var(--visto-primary); }
 .profile-story { display: grid; grid-template-columns: minmax(210px, 0.42fr) minmax(0, 1fr); gap: clamp(48px, 7vw, 110px); padding: clamp(62px, 8vw, 106px) 0; border-bottom: 1px solid var(--visto-border); }
 .profile-visual { display: grid; align-content: start; justify-items: start; gap: 24px; padding-right: clamp(30px, 5vw, 76px); border-right: 1px solid var(--visto-border); color: var(--visto-accent); }
@@ -259,7 +249,6 @@ button { font: inherit; }
 .pricing-section { padding: clamp(110px, 13vw, 180px) clamp(24px, 8vw, 128px); border-top: 1px solid var(--visto-border); background: var(--visto-surface); }
 .pricing-heading { max-width: 920px; }
 .pricing-heading h2 { max-width: 900px; margin: 0; color: var(--visto-primary); font-size: clamp(2.25rem, 5vw, 4.6rem); line-height: 1.08; letter-spacing: -0.035em; }
-.pricing-heading > p:last-child { max-width: 680px; margin: 28px 0 0; color: var(--visto-muted); font-size: 1.15rem; line-height: 1.65; }
 .pricing-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 72px; }
 .pricing-plan { display: grid; align-content: start; min-height: 440px; padding: clamp(28px, 3vw, 42px); border: 1px solid var(--visto-border); background: var(--visto-bg); }
 .pricing-plan header { padding-bottom: 26px; border-bottom: 1px solid var(--visto-border); }
@@ -279,7 +268,6 @@ button { font: inherit; }
 .final-invite { display: grid; justify-items: center; margin: 0 clamp(16px, 4vw, 64px) 64px; padding: clamp(90px, 12vw, 160px) 24px; color: #fff; background: var(--visto-primary); text-align: center; }
 .invite-mark { display: grid; place-items: center; width: 132px; height: 104px; margin-bottom: 38px; border: 1px solid #87a5b1; border-radius: 50%; }
 .brand-symbol-invite { height: 82px; }
-.final-invite > p { margin: 0 0 18px; color: #c7d9df; font-family: "IBM Plex Mono", monospace; font-size: 0.9rem; }
 .final-invite h2 { max-width: 880px; margin: 0; color: #fff; font-size: clamp(2.7rem, 6vw, 5.6rem); line-height: 1.02; letter-spacing: -0.04em; }
 .final-cta { min-height: 56px; margin-top: 38px; padding: 0 26px; color: var(--visto-primary); background: #fff; }
 .final-cta:hover { color: #fff; background: var(--visto-accent); }
@@ -319,11 +307,9 @@ button { font: inherit; }
   .nav-access { min-height: 42px !important; padding: 0 13px; font-size: 0.9rem; }
   .landing-hero { padding: 116px 20px 70px; }
   .hero-copy h1 { font-size: clamp(3.2rem, 16vw, 4.8rem); }
-  .hero-lead { margin-top: 26px; font-size: 1.08rem; }
   .hero-actions { align-items: stretch; gap: 14px; }
   .primary-cta { width: 100%; }
   .text-link { justify-content: center; }
-  .hero-note { align-items: flex-start; }
   .hero-proof { min-height: 520px; margin-top: 10px; }
   .proof-window { top: 40px; left: 0; width: 100%; }
   .proof-body { padding: 22px; }

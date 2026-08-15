@@ -310,20 +310,12 @@ export default function Landing({ onAccess }: LandingProps) {
           aria-labelledby="hero-title"
         >
           <div className="hero-copy">
-            <p className="hero-kicker">
-              <span /> Acompanhamento escolar que aproxima
-            </p>
             <h1 id="hero-title" aria-label="Todo esforço merece ser visto.">
               <span>Todo esforço</span>
               <span>
                 merece ser <em>visto.</em>
               </span>
             </h1>
-            <p className="hero-lead">
-              A Visto transforma observações, tarefas, conquistas e conversas da
-              rotina escolar em uma trajetória clara para quem ensina, aprende e
-              cuida.
-            </p>
             <div className="hero-actions">
               <button
                 className="primary-cta"
@@ -336,10 +328,6 @@ export default function Landing({ onAccess }: LandingProps) {
                 Acompanhar a jornada <ChevronDown size={17} />
               </a>
             </div>
-            <p className="hero-note">
-              <ShieldCheck size={16} /> Informação simples, contextualizada e
-              rastreável.
-            </p>
           </div>
 
           <div
@@ -503,14 +491,6 @@ export default function Landing({ onAccess }: LandingProps) {
               observa o conjunto. Cada área abaixo traduz os módulos que já
               existem na experiência atual.
             </p>
-            <div className="profile-scope-note" role="note">
-              <ShieldCheck size={20} aria-hidden="true" />
-              <p>
-                <strong>Escopo em construção.</strong> Estas são possibilidades
-                observadas no sistema atual — não regras definitivas de
-                permissionamento.
-              </p>
-            </div>
           </div>
           <div className="profiles-flow">
             {profiles.map(({ Icon, ...profile }, index) => (
@@ -563,10 +543,6 @@ export default function Landing({ onAccess }: LandingProps) {
             <h2 id="pricing-title">
               Uma faixa de adesão para cada tamanho de escola.
             </h2>
-            <p>
-              A contratação é organizada pelo número de alunos. Assim, cada
-              escola identifica com clareza o plano compatível com seu porte.
-            </p>
           </div>
 
           <div className="pricing-grid" data-reveal="center">
@@ -611,7 +587,6 @@ export default function Landing({ onAccess }: LandingProps) {
               height="220"
             />
           </div>
-          <p>Quatro perspectivas. Um mesmo contexto.</p>
           <h2>
             Quando todos enxergam o caminho, cada esforço ganha continuidade.
           </h2>

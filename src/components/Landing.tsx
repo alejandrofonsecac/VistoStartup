@@ -14,7 +14,7 @@ import {
 import "./landing.css"
 
 interface LandingProps {
-  onAccess: () => void
+  onAccess?: () => void
 }
 
 const journey = [
@@ -47,23 +47,69 @@ const journey = [
   },
 ]
 
-const roles = [
-  [
-    "Responsáveis",
-    "Entendem como o aluno está sem precisar reunir mensagens, bilhetes e lembranças.",
-  ],
-  [
-    "Alunos",
-    "Enxergam tarefas, avisos e próximos passos com linguagem simples.",
-  ],
-  [
-    "Professores",
-    "Registram observações e comunicam o que importa sem burocracia.",
-  ],
-  ["Coordenação", "Acompanha turmas, pessoas e alertas com rastreabilidade."],
+const profiles = [
+  {
+    role: "Professores",
+    stage: "O contexto nasce aqui",
+    title: "Registram enquanto a experiência ainda está viva.",
+    copy: "Depois de uma aula, o professor transforma uma percepção em um registro compreensível — sem depender da memória ou esperar a próxima reunião.",
+    daily: [
+      "Reconhecer participação, evolução e pontos de atenção.",
+      "Publicar tarefas com prazo e orientação no mesmo lugar.",
+      "Abrir uma conversa com o contexto já registrado.",
+    ],
+    outcome: "Menos reconstrução do passado. Mais continuidade pedagógica.",
+    Icon: PenLine,
+    side: "left",
+  },
+  {
+    role: "Alunos",
+    stage: "O próximo passo aparece",
+    title: "Sabem o que aconteceu e o que precisam fazer agora.",
+    copy: "O aluno encontra tarefas, avisos e registros em uma leitura direta. Em vez de procurar informações espalhadas, ele enxerga uma sequência possível de acompanhar.",
+    daily: [
+      "Consultar tarefas e datas sem depender de lembretes paralelos.",
+      "Rever orientações e observações com clareza.",
+      "Perceber o próprio progresso ao longo do tempo.",
+    ],
+    outcome:
+      "Mais autonomia para organizar a rotina e participar do próprio processo.",
+    Icon: BookOpenCheck,
+    side: "right",
+  },
+  {
+    role: "Responsáveis",
+    stage: "A família acompanha",
+    title: "Participam sem precisar montar o contexto por conta própria.",
+    copy: "A família recebe a informação com autoria, momento e continuidade. Assim, uma observação deixa de ser uma mensagem isolada e se torna parte do acompanhamento.",
+    daily: [
+      "Acompanhar conquistas, dificuldades e tarefas relevantes.",
+      "Entender quem registrou e quando aquilo aconteceu.",
+      "Conversar com a escola a partir do mesmo contexto.",
+    ],
+    outcome:
+      "Menos ruído entre escola e família. Mais presença nas decisões do dia a dia.",
+    Icon: UsersRound,
+    side: "left",
+  },
+  {
+    role: "Coordenação",
+    stage: "A visão se amplia",
+    title: "Enxerga padrões antes que situações virem urgências.",
+    copy: "Com registros, pessoas, turmas e alertas organizados, a coordenação deixa de depender apenas de relatos pontuais para compreender o que merece atenção.",
+    daily: [
+      "Acompanhar movimentações relevantes entre turmas e perfis.",
+      "Identificar alertas e recorrências com rastreabilidade.",
+      "Apoiar professores e famílias com informações consistentes.",
+    ],
+    outcome:
+      "Decisões mais rápidas, fundamentadas e conectadas à realidade escolar.",
+    Icon: ShieldCheck,
+    side: "right",
+  },
 ]
 
-export default function Landing({ onAccess }: LandingProps) {
+export default function Landing(_: LandingProps) {
   const rootRef = useRef<HTMLDivElement>(null)
   const [scrolled, setScrolled] = useState(false)
 
@@ -125,11 +171,6 @@ export default function Landing({ onAccess }: LandingProps) {
     }
   }, [])
 
-  const access = () => {
-    window.scrollTo({ top: 0, behavior: "auto" })
-    onAccess()
-  }
-
   return (
     <div className="visto-landing" ref={rootRef}>
       <a className="skip-link" href="#conteudo">
@@ -154,11 +195,11 @@ export default function Landing({ onAccess }: LandingProps) {
         </a>
         <nav aria-label="Seções da página">
           <a href="#proposito">Por que a Visto</a>
-          <a href="#como-funciona">Como funciona</a>
+          <a href="#perfis">Perfis e rotina</a>
         </nav>
-        <button className="nav-access" type="button" onClick={access}>
-          Acessar sistema <ArrowRight size={17} />
-        </button>
+        <a className="nav-access" href="#perfis">
+          Ver os perfis <ArrowRight size={17} />
+        </a>
       </header>
 
       <main id="conteudo">
@@ -183,11 +224,11 @@ export default function Landing({ onAccess }: LandingProps) {
               cuida.
             </p>
             <div className="hero-actions">
-              <button className="primary-cta" type="button" onClick={access}>
-                Acessar a plataforma <ArrowRight size={19} />
-              </button>
-              <a className="text-link" href="#proposito">
-                Conhecer a Visto <ChevronDown size={17} />
+              <a className="primary-cta" href="#perfis">
+                Ver como a Visto ajuda <ArrowRight size={19} />
+              </a>
+              <a className="text-link" href="#como-funciona">
+                Acompanhar a jornada <ChevronDown size={17} />
               </a>
             </div>
             <p className="hero-note">
@@ -341,20 +382,57 @@ export default function Landing({ onAccess }: LandingProps) {
           </div>
         </section>
 
-        <section className="roles-section">
-          <div className="roles-title" data-reveal="left">
-            <p className="section-index">Uma comunidade, a mesma verdade</p>
-            <h2>
-              Cada pessoa vê o que precisa. Todos acompanham o que importa.
+        <section
+          className="profiles-section"
+          id="perfis"
+          aria-labelledby="profiles-title"
+        >
+          <div className="profiles-title" data-reveal="left">
+            <p className="section-index">Da informação à ação</p>
+            <h2 id="profiles-title">
+              A mesma informação acompanha cada pessoa sem perder o contexto.
             </h2>
+            <p>
+              A Visto não cria quatro experiências desconectadas. Ela organiza
+              um fluxo único: o que começa como registro ganha continuidade na
+              rotina do aluno, aproxima a família e amplia a visão da
+              coordenação.
+            </p>
           </div>
-          <div className="roles-list">
-            {roles.map(([title, copy], index) => (
-              <article data-reveal={index % 2 ? "right" : "left"} key={title}>
-                <span>0{index + 1}</span>
-                <h3>{title}</h3>
-                <p>{copy}</p>
-                <ArrowRight size={20} aria-hidden="true" />
+          <div className="profiles-flow">
+            {profiles.map(({ Icon, ...profile }, index) => (
+              <article
+                className="profile-story"
+                data-reveal={profile.side}
+                key={profile.role}
+              >
+                <div className="profile-visual">
+                  <span className="profile-number">0{index + 1}</span>
+                  <Icon size={38} strokeWidth={1.6} aria-hidden="true" />
+                  <p>{profile.stage}</p>
+                </div>
+                <div className="profile-copy">
+                  <p className="profile-role">
+                    Para {profile.role.toLowerCase()}
+                  </p>
+                  <h3>{profile.title}</h3>
+                  <p className="profile-intro">{profile.copy}</p>
+                  <div className="profile-daily">
+                    <strong>No dia a dia</strong>
+                    <ul>
+                      {profile.daily.map((item) => (
+                        <li key={item}>
+                          <Check size={17} aria-hidden="true" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <p className="profile-outcome">
+                    <ArrowRight size={18} aria-hidden="true" />
+                    {profile.outcome}
+                  </p>
+                </div>
               </article>
             ))}
           </div>
@@ -370,11 +448,13 @@ export default function Landing({ onAccess }: LandingProps) {
               height="220"
             />
           </div>
-          <p>Entre, conheça, acompanhe.</p>
-          <h2>Todo esforço merece ser visto.</h2>
-          <button className="final-cta" type="button" onClick={access}>
-            Acessar a plataforma <ArrowRight size={20} />
-          </button>
+          <p>Quatro perspectivas. Um mesmo contexto.</p>
+          <h2>
+            Quando todos enxergam o caminho, cada esforço ganha continuidade.
+          </h2>
+          <a className="final-cta" href="#como-funciona">
+            Rever como a informação circula <ArrowRight size={20} />
+          </a>
           <div className="invite-audience">
             <UsersRound size={17} /> Para responsáveis, alunos, professores e
             coordenação.
@@ -397,9 +477,9 @@ export default function Landing({ onAccess }: LandingProps) {
           />
         </a>
         <p>Clareza para acompanhar. Presença para reconhecer.</p>
-        <button type="button" onClick={access}>
-          Entrar no sistema <ArrowRight size={16} />
-        </button>
+        <a className="footer-action" href="#perfis">
+          Conhecer os perfis <ArrowRight size={16} />
+        </a>
       </footer>
     </div>
   )

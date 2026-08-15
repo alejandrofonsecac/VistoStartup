@@ -61,7 +61,11 @@ button { font: inherit; }
   transition: border-color 220ms ease, background 220ms ease;
 }
 .landing-nav.is-scrolled { min-height: 64px; border-color: var(--visto-border); background: rgba(255, 255, 255, 0.96); }
-.visto-wordmark { display: inline-flex; align-items: center; gap: 11px; width: max-content; color: var(--visto-primary); font-size: 1.2rem; letter-spacing: -0.03em; }
+.visto-wordmark { display: inline-flex; align-items: center; width: max-content; min-height: 44px; color: var(--visto-primary); }
+.brand-logo { display: block; width: auto; object-fit: contain; }
+.brand-logo-header { height: 52px; }
+.brand-logo-footer { height: 68px; }
+.brand-symbol { display: block; width: auto; object-fit: contain; }
 .visto-mark {
   position: relative;
   display: inline-grid;
@@ -192,7 +196,7 @@ button { font: inherit; }
 .fragment-b { top: 210px; right: 1%; }
 .fragment-c { bottom: 48px; left: 8%; }
 .fragment-core { position: relative; z-index: 2; display: grid; justify-items: center; width: min(410px, 42vw); padding: 50px 36px; border: 1px solid var(--visto-primary); border-radius: 50%; color: var(--visto-primary); background: var(--visto-bg); text-align: center; }
-.fragment-core .visto-mark { margin-bottom: 20px; }
+.brand-symbol-core { height: 88px; margin-bottom: 20px; }
 .fragment-core strong { font-family: "Lexend", sans-serif; font-size: 1.5rem; }
 .fragment-core p { margin: 10px 0 0; color: var(--visto-muted); line-height: 1.5; }
 
@@ -230,7 +234,8 @@ button { font: inherit; }
 .roles-list svg { color: var(--visto-accent); }
 
 .final-invite { display: grid; justify-items: center; margin: 0 clamp(16px, 4vw, 64px) 64px; padding: clamp(90px, 12vw, 160px) 24px; color: #fff; background: var(--visto-primary); text-align: center; }
-.invite-mark { display: grid; place-items: center; width: 96px; height: 64px; margin-bottom: 38px; border: 1px solid #87a5b1; border-radius: 50%; color: #c7d9df; }
+.invite-mark { display: grid; place-items: center; width: 132px; height: 104px; margin-bottom: 38px; border: 1px solid #87a5b1; border-radius: 50%; }
+.brand-symbol-invite { height: 82px; }
 .final-invite > p { margin: 0 0 18px; color: #c7d9df; font-family: "IBM Plex Mono", monospace; font-size: 0.9rem; }
 .final-invite h2 { max-width: 880px; margin: 0; color: #fff; font-size: clamp(2.7rem, 6vw, 5.6rem); line-height: 1.02; letter-spacing: -0.04em; }
 .final-cta { min-height: 56px; margin-top: 38px; padding: 0 26px; color: var(--visto-primary); background: #fff; }
@@ -264,7 +269,8 @@ button { font: inherit; }
 
 @media (max-width: 760px) {
   .landing-nav { min-height: 64px; padding: 10px 18px; }
-  .visto-wordmark { font-size: 1.05rem; }
+  .brand-logo-header { height: 44px; }
+  .brand-logo-footer { height: 62px; }
   .nav-access { min-height: 42px !important; padding: 0 13px; font-size: 0.9rem; }
   .landing-hero { padding: 116px 20px 70px; }
   .hero-copy h1 { font-size: clamp(3.2rem, 16vw, 4.8rem); }

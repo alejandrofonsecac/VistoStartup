@@ -144,10 +144,13 @@ export default function Landing({ onAccess }: LandingProps) {
           href="#inicio"
           aria-label="Visto — início"
         >
-          <span className="visto-mark" aria-hidden="true">
-            <span />
-          </span>
-          <strong>Visto</strong>
+          <img
+            className="brand-logo brand-logo-header"
+            src="/visto-logo.png"
+            alt="Visto"
+            width="445"
+            height="312"
+          />
         </a>
         <nav aria-label="Seções da página">
           <a href="#proposito">Por que a Visto</a>
@@ -283,9 +286,14 @@ export default function Landing({ onAccess }: LandingProps) {
               </span>
             </div>
             <div className="fragment-core" data-reveal="center">
-              <span className="visto-mark">
-                <span />
-              </span>
+              <img
+                className="brand-symbol brand-symbol-core"
+                src="/visto-symbol.png"
+                alt=""
+                width="229"
+                height="220"
+                aria-hidden="true"
+              />
               <strong>A Visto reúne o que importa.</strong>
               <p>Cada informação ganha contexto, autoria e continuidade.</p>
             </div>
@@ -354,7 +362,13 @@ export default function Landing({ onAccess }: LandingProps) {
 
         <section className="final-invite" data-reveal="center">
           <div className="invite-mark" aria-hidden="true">
-            <Eye size={52} />
+            <img
+              className="brand-symbol brand-symbol-invite"
+              src="/visto-symbol.png"
+              alt=""
+              width="229"
+              height="220"
+            />
           </div>
           <p>Entre, conheça, acompanhe.</p>
           <h2>Todo esforço merece ser visto.</h2>
@@ -369,11 +383,18 @@ export default function Landing({ onAccess }: LandingProps) {
       </main>
 
       <footer className="landing-footer">
-        <a className="visto-wordmark" href="#inicio">
-          <span className="visto-mark mini">
-            <span />
-          </span>
-          <strong>Visto</strong>
+        <a
+          className="visto-wordmark"
+          href="#inicio"
+          aria-label="Visto — voltar ao início"
+        >
+          <img
+            className="brand-logo brand-logo-footer"
+            src="/visto-logo.png"
+            alt="Visto"
+            width="445"
+            height="312"
+          />
         </a>
         <p>Clareza para acompanhar. Presença para reconhecer.</p>
         <button type="button" onClick={access}>

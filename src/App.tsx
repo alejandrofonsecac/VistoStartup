@@ -1,8 +1,11 @@
 import { useState } from 'react'
 import type { User, ViewName, Registro, Tarefa, Conversa, Aviso, Mensagem } from './types'
-import { USUARIOS, ALUNOS, TURMAS, REGISTROS_INICIAIS, TAREFAS_INICIAIS, CONVERSAS_INICIAIS, AVISOS_INICIAIS, CREDENCIAIS } from './data'
+import { USUARIOS, ALUNOS, TURMAS, REGISTROS_INICIAIS, TAREFAS_INICIAIS, CONVERSAS_INICIAIS, AVISOS_INICIAIS } from './data'
+import { CALENDAR_EVENTS } from './data/calendarEvents'
 import Login from './components/Login'
 import Layout from './components/Layout'
+import CalendarModal from './components/calendar/CalendarModal'
+import { dateKey, monthStart } from './components/calendar/CalendarMonth'
 import ResponsavelView from './view/ResponsavelView'
 import AlunoView from './view/AlunoView'
 import ProfessorView from './view/ProfessorView'
@@ -24,15 +27,25 @@ export default function App() {
   const [avisos, setAvisos] = useState<Aviso[]>(AVISOS_INICIAIS)
   const [avisosVistos, setAvisosVistos] = useState<Set<string>>(new Set(['av3', 'av4']))
   const [tarefasConcluidas, setTarefasConcluidas] = useState<Set<string>>(new Set())
+  const [filhoSelecionado, setFilhoSelecionado] = useState('')
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false)
+  const [calendarMonth, setCalendarMonth] = useState(() => monthStart(new Date()))
+  const [calendarSelectedDate, setCalendarSelectedDate] = useState(() => dateKey(new Date()))
+  const [calendarSelectedEventId, setCalendarSelectedEventId] = useState<string | null>(null)
 
   const handleLogin = (user: User) => {
     setCurrentUser(user)
     setCurrentView(defaultView(user.role))
+    setFilhoSelecionado(user.filhosIds?.[0] ?? '')
+    setIsCalendarOpen(false)
+    setCalendarSelectedEventId(null)
   }
 
   const handleLogout = () => {
     setCurrentUser(null)
     setCurrentView('inicio')
+    setFilhoSelecionado('')
+    setIsCalendarOpen(false)
   }
 
   const handleViewChange = (view: ViewName) => {
@@ -101,19 +114,36 @@ export default function App() {
 
   const filhos = ALUNOS.filter(a => currentUser.filhosIds?.includes(a.id) ?? false)
   const alunoLogado = ALUNOS.find(a => a.turmaId === currentUser.turmaId && a.nome === currentUser.nome)
+  const selectedStudent = filhos.find(filho => filho.id === filhoSelecionado) ?? filhos[0]
+  const calendarEvents = CALENDAR_EVENTS.filter(event => event.studentId === selectedStudent?.id)
+  const selectedCalendarEvent = calendarEvents.find(event => event.id === calendarSelectedEventId) ?? null
+
+  const handleStudentChange = (studentId: string) => {
+    setFilhoSelecionado(studentId)
+    setCalendarSelectedEventId(null)
+  }
+
+  const handleCalendarDateChange = (date: string) => {
+    setCalendarSelectedDate(date)
+    setCalendarSelectedEventId(null)
+  }
 
   return (
+    <>
     <Layout
       user={currentUser}
       currentView={currentView}
       onViewChange={handleViewChange}
       onLogout={handleLogout}
       unreadCount={unreadAvisos}
+      onOpenCalendar={currentUser.role === 'responsavel' ? () => setIsCalendarOpen(true) : undefined}
     >
       {currentUser.role === 'responsavel' && (
         <ResponsavelView
           user={currentUser}
           filhos={filhos}
+          filhoSelecionado={selectedStudent?.id ?? ''}
+          onFilhoSelecionado={handleStudentChange}
           registros={registros}
           tarefas={tarefas}
           conversas={conversas}
@@ -122,6 +152,12 @@ export default function App() {
           onMarcarAvisoVisto={handleMarcarAvisoVisto}
           onEnviarMensagem={handleEnviarMensagem}
           currentView={currentView}
+          calendarEvents={calendarEvents}
+          calendarMonth={calendarMonth}
+          calendarSelectedDate={calendarSelectedDate}
+          onCalendarMonthChange={setCalendarMonth}
+          onCalendarDateChange={handleCalendarDateChange}
+          onOpenCalendar={() => setIsCalendarOpen(true)}
         />
       )}
 
@@ -167,5 +203,21 @@ export default function App() {
         />
       )}
     </Layout>
+    {currentUser.role === 'responsavel' && selectedStudent && (
+      <CalendarModal
+        studentName={selectedStudent.nome}
+        isOpen={isCalendarOpen}
+        month={calendarMonth}
+        events={calendarEvents}
+        selectedDate={calendarSelectedDate}
+        selectedEvent={selectedCalendarEvent}
+        onClose={() => { setIsCalendarOpen(false); setCalendarSelectedEventId(null) }}
+        onMonthChange={setCalendarMonth}
+        onSelectDate={handleCalendarDateChange}
+        onSelectEvent={event => setCalendarSelectedEventId(event.id)}
+        onBackToAgenda={() => setCalendarSelectedEventId(null)}
+      />
+    )}
+    </>
   )
 }

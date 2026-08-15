@@ -1,10 +1,11 @@
-import { GraduationCap, Home, Clock, BookOpen, MessageCircle, Bell, PenLine, Megaphone, LayoutDashboard, Users, School, AlertTriangle, LogOut, ChevronDown } from 'lucide-react'
+import { GraduationCap, Home, Clock, BookOpen, MessageCircle, Bell, PenLine, Megaphone, LayoutDashboard, Users, School, AlertTriangle, LogOut, CalendarDays } from 'lucide-react'
 import type { User, ViewName } from '../types'
 
 interface NavItem {
   view: ViewName
   label: string
   icon: React.ReactNode
+  calendarAction?: boolean
 }
 
 function getNavItems(role: string): NavItem[] {
@@ -14,6 +15,7 @@ function getNavItems(role: string): NavItem[] {
         { view: 'inicio', label: 'Início', icon: <Home size={18} /> },
         { view: 'timeline', label: 'Histórico', icon: <Clock size={18} /> },
         { view: 'tarefas', label: 'Tarefas', icon: <BookOpen size={18} /> },
+        { view: 'inicio', label: 'Calendário', icon: <CalendarDays size={18} />, calendarAction: true },
         { view: 'chat', label: 'Chat', icon: <MessageCircle size={18} /> },
         { view: 'avisos', label: 'Avisos', icon: <Bell size={18} /> },
       ]
@@ -49,10 +51,11 @@ interface Props {
   onViewChange: (v: ViewName) => void
   onLogout: () => void
   unreadCount: number
+  onOpenCalendar?: () => void
   children: React.ReactNode
 }
 
-export default function Layout({ user, currentView, onViewChange, onLogout, unreadCount, children }: Props) {
+export default function Layout({ user, currentView, onViewChange, onLogout, unreadCount, onOpenCalendar, children }: Props) {
   const navItems = getNavItems(user.role)
 
   const roleLabels: Record<string, string> = {
@@ -82,11 +85,11 @@ export default function Layout({ user, currentView, onViewChange, onLogout, unre
         {/* Nav */}
         <nav className="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto scrollbar-hide">
           {navItems.map(item => {
-            const active = currentView === item.view
+            const active = !item.calendarAction && currentView === item.view
             return (
               <button
-                key={item.view}
-                onClick={() => onViewChange(item.view)}
+                key={item.label}
+                onClick={() => item.calendarAction ? onOpenCalendar?.() : onViewChange(item.view)}
                 className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all text-left"
                 style={{
                   backgroundColor: active ? 'rgba(255,255,255,0.12)' : 'transparent',
@@ -160,11 +163,11 @@ export default function Layout({ user, currentView, onViewChange, onLogout, unre
         {/* Mobile bottom nav */}
         <nav className="md:hidden fixed bottom-0 left-0 right-0 z-20 flex bg-white" style={{ borderTop: '1px solid #E4E2DD' }}>
           {navItems.map(item => {
-            const active = currentView === item.view
+            const active = !item.calendarAction && currentView === item.view
             return (
               <button
-                key={item.view}
-                onClick={() => onViewChange(item.view)}
+                key={item.label}
+                onClick={() => item.calendarAction ? onOpenCalendar?.() : onViewChange(item.view)}
                 className="flex-1 flex flex-col items-center justify-center py-2 gap-1 relative"
                 style={{ color: active ? '#1B3A4B' : '#5C6469' }}
                 aria-label={item.label}

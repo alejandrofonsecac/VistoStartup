@@ -1,11 +1,14 @@
 import { useState, useRef, useEffect } from 'react'
-import { CheckCircle2, Clock, BookOpen, AlertTriangle, TrendingUp, Send, ChevronRight, User, Calendar } from 'lucide-react'
-import type { User as UserType, Aluno, Registro, Tarefa, Conversa, Aviso, ViewName } from '../types'
+import { CheckCircle2, BookOpen, AlertTriangle, Send, User } from 'lucide-react'
+import type { User as UserType, Aluno, Registro, Tarefa, Conversa, Aviso, ViewName, CalendarEvent } from '../types'
 import { PageHeader, Card, CategoriaBadge, formatDate, formatTime, formatDateShort } from '../components/Layout'
+import CalendarMini from '../components/calendar/CalendarMini'
 
 interface Props {
   user: UserType
   filhos: Aluno[]
+  filhoSelecionado: string
+  onFilhoSelecionado: (id: string) => void
   registros: Registro[]
   tarefas: Tarefa[]
   conversas: Conversa[]
@@ -14,13 +17,20 @@ interface Props {
   onMarcarAvisoVisto: (id: string) => void
   onEnviarMensagem: (conversaId: string, texto: string) => void
   currentView: ViewName
+  calendarEvents: CalendarEvent[]
+  calendarMonth: Date
+  calendarSelectedDate: string
+  onCalendarMonthChange: (month: Date) => void
+  onCalendarDateChange: (date: string) => void
+  onOpenCalendar: () => void
 }
 
 export default function ResponsavelView({
-  user, filhos, registros, tarefas, conversas, avisos,
+  user, filhos, filhoSelecionado, onFilhoSelecionado, registros, tarefas, conversas, avisos,
   avisosVistos, onMarcarAvisoVisto, onEnviarMensagem, currentView,
+  calendarEvents, calendarMonth, calendarSelectedDate, onCalendarMonthChange, onCalendarDateChange, onOpenCalendar,
 }: Props) {
-  const [filhoSelecionado, setFilhoSelecionado] = useState(filhos[0]?.id ?? '')
+  const [filtro, setFiltro] = useState<string>('Todos')
   const filho = filhos.find(f => f.id === filhoSelecionado) ?? filhos[0]
 
   const registrosFilho = registros.filter(r => r.alunoId === filhoSelecionado).sort((a, b) => b.dataHora.localeCompare(a.dataHora))
@@ -36,7 +46,7 @@ export default function ResponsavelView({
         {filhos.map(f => (
           <button
             key={f.id}
-            onClick={() => setFilhoSelecionado(f.id)}
+            onClick={() => onFilhoSelecionado(f.id)}
             className="px-4 py-1.5 rounded-full text-sm font-semibold transition-all"
             style={{
               backgroundColor: filhoSelecionado === f.id ? '#1B3A4B' : '#fff',
@@ -63,7 +73,8 @@ export default function ResponsavelView({
           subtitle="Veja como está indo na escola."
         />
         <SeletorFilhos />
-        <div className="px-6 py-6 space-y-5 max-w-2xl">
+        <div className="px-6 py-6 grid gap-5 xl:grid-cols-[minmax(0,1fr)_20rem] items-start">
+          <div className="space-y-5 max-w-2xl">
           {/* Status card */}
           <Card className="p-5">
             <div className="flex items-center gap-3 mb-4">
@@ -146,13 +157,24 @@ export default function ResponsavelView({
               </div>
             </div>
           )}
+          </div>
+          <div className="xl:sticky xl:top-6">
+            <CalendarMini
+              studentName={filho?.nome ?? 'aluno'}
+              month={calendarMonth}
+              events={calendarEvents}
+              selectedDate={calendarSelectedDate}
+              onMonthChange={onCalendarMonthChange}
+              onSelectDate={onCalendarDateChange}
+              onOpen={onOpenCalendar}
+            />
+          </div>
         </div>
       </div>
     )
   }
 
   if (currentView === 'timeline') {
-    const [filtro, setFiltro] = useState<string>('Todos')
     const categorias = ['Todos', 'Comportamento', 'Desempenho', 'Aviso', 'Elogio', 'Participação']
     const filtrados = filtro === 'Todos' ? registrosFilho : registrosFilho.filter(r => r.categoria === filtro)
 
@@ -256,7 +278,7 @@ export default function ResponsavelView({
   }
 
   if (currentView === 'chat') {
-    return <ChatResponsavel conversas={conversasFilho} user={user} filho={filho} onEnviarMensagem={onEnviarMensagem} filhos={filhos} filhoSelecionado={filhoSelecionado} setFilhoSelecionado={setFilhoSelecionado} />
+    return <ChatResponsavel conversas={conversasFilho} user={user} filho={filho} onEnviarMensagem={onEnviarMensagem} filhos={filhos} filhoSelecionado={filhoSelecionado} setFilhoSelecionado={onFilhoSelecionado} />
   }
 
   if (currentView === 'avisos') {

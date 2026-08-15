@@ -90,3 +90,17 @@ export interface Aviso {
   turmaId: string
   urgente: boolean
 }
+
+export type CalendarEventType = 'assignment' | 'project' | 'exam' | 'school-event'
+
+export interface CalendarEvent {
+  id: string
+  studentId: string
+  title: string
+  type: CalendarEventType
+  date: string
+  time: string | null
+  subject: string
+  teacher: string
+  description: string
+}

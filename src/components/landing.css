@@ -256,6 +256,26 @@ button { font: inherit; }
 .profile-outcome { display: flex; align-items: flex-start; gap: 11px; margin: 30px 0 0; color: var(--visto-primary); font-weight: 700; line-height: 1.5; }
 .profile-outcome svg { flex: 0 0 auto; margin-top: 3px; color: var(--visto-accent); }
 
+.pricing-section { padding: clamp(110px, 13vw, 180px) clamp(24px, 8vw, 128px); border-top: 1px solid var(--visto-border); background: var(--visto-surface); }
+.pricing-heading { max-width: 920px; }
+.pricing-heading h2 { max-width: 900px; margin: 0; color: var(--visto-primary); font-size: clamp(2.25rem, 5vw, 4.6rem); line-height: 1.08; letter-spacing: -0.035em; }
+.pricing-heading > p:last-child { max-width: 680px; margin: 28px 0 0; color: var(--visto-muted); font-size: 1.15rem; line-height: 1.65; }
+.pricing-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 72px; }
+.pricing-plan { display: grid; align-content: start; min-height: 440px; padding: clamp(28px, 3vw, 42px); border: 1px solid var(--visto-border); background: var(--visto-bg); }
+.pricing-plan header { padding-bottom: 26px; border-bottom: 1px solid var(--visto-border); }
+.pricing-plan header p { margin: 0 0 12px; color: var(--visto-accent); font-family: "IBM Plex Mono", monospace; font-size: 0.78rem; letter-spacing: 0.04em; text-transform: uppercase; }
+.pricing-plan h3 { margin: 0; color: var(--visto-primary); font-size: clamp(1.65rem, 2.6vw, 2.45rem); line-height: 1.12; letter-spacing: -0.03em; }
+.plan-range { display: flex; align-items: center; gap: 10px; margin: 28px 0 0; color: var(--visto-primary); }
+.plan-range svg { flex: 0 0 auto; color: var(--visto-accent); }
+.plan-price { display: flex; align-items: baseline; gap: 7px; margin: 34px 0 0; color: var(--visto-primary); white-space: nowrap; }
+.plan-price > span { font-family: "IBM Plex Mono", monospace; font-size: 0.9rem; }
+.plan-price strong { font-family: "Lexend", sans-serif; font-size: clamp(2.7rem, 4.2vw, 4.4rem); line-height: 1; letter-spacing: -0.04em; }
+.plan-price small { color: var(--visto-muted); font-size: 0.95rem; }
+.plan-fit { align-self: end; margin: 42px 0 0; padding-top: 24px; border-top: 1px solid var(--visto-border); color: var(--visto-muted); font-size: 1rem; line-height: 1.5; }
+.pricing-action { display: flex; align-items: center; justify-content: space-between; gap: 28px; margin-top: 46px; padding-top: 34px; border-top: 1px solid var(--visto-primary); }
+.pricing-action p { margin: 0; color: var(--visto-primary); font-family: "Lexend", sans-serif; font-size: 1.15rem; font-weight: 700; }
+.pricing-action .primary-cta { flex: 0 0 auto; }
+
 .final-invite { display: grid; justify-items: center; margin: 0 clamp(16px, 4vw, 64px) 64px; padding: clamp(90px, 12vw, 160px) 24px; color: #fff; background: var(--visto-primary); text-align: center; }
 .invite-mark { display: grid; place-items: center; width: 132px; height: 104px; margin-bottom: 38px; border: 1px solid #87a5b1; border-radius: 50%; }
 .brand-symbol-invite { height: 82px; }
@@ -288,6 +308,8 @@ button { font: inherit; }
   .scroll-cue { display: none; }
   .fragment-core { width: min(430px, 48vw); }
   .journey-entry { width: 52%; }
+  .pricing-grid { grid-template-columns: 1fr; max-width: 680px; }
+  .pricing-plan { min-height: 0; }
 }
 
 @media (max-width: 760px) {
@@ -313,11 +335,13 @@ button { font: inherit; }
 
   .fragment-section,
   .journey-section,
-  .profiles-section { padding-inline: 20px; }
+  .profiles-section,
+  .pricing-section { padding-inline: 20px; }
   .fragment-section { min-height: auto; padding-block: 100px; }
   .section-intro h2,
   .journey-heading h2,
-  .profiles-title h2 { font-size: clamp(2.25rem, 11vw, 3.4rem); }
+  .profiles-title h2,
+  .pricing-heading h2 { font-size: clamp(2.25rem, 11vw, 3.4rem); }
   .fragment-stage { display: flex; flex-direction: column; gap: 14px; min-height: auto; margin-top: 60px; }
   .fragment { position: static; width: 100%; }
   .fragment-core { order: -1; width: 100%; border-radius: 12px; }
@@ -343,6 +367,11 @@ button { font: inherit; }
   .profile-copy h3 { font-size: clamp(1.8rem, 8.4vw, 2.55rem); }
   .profile-intro { font-size: 1.03rem; }
   .profile-modules li { grid-template-columns: 1fr; gap: 7px; padding: 17px 0; }
+  .pricing-grid { margin-top: 56px; }
+  .pricing-plan { padding: 28px 24px; }
+  .plan-price strong { font-size: clamp(2.8rem, 15vw, 4rem); }
+  .pricing-action { align-items: stretch; flex-direction: column; }
+  .pricing-action .primary-cta { width: 100%; }
   .final-invite { margin: 0 12px 30px; padding: 84px 20px; }
   .final-invite h2 { font-size: clamp(2.8rem, 13vw, 4.4rem); }
   .final-cta { width: 100%; }

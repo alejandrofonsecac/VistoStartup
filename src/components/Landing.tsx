@@ -183,6 +183,27 @@ const profiles = [
   },
 ]
 
+const plans = [
+  {
+    name: "Plano Start",
+    range: "Até 300 alunos",
+    price: "1.000",
+    fit: "Ideal para escolas pequenas.",
+  },
+  {
+    name: "Plano School",
+    range: "301 a 700 alunos",
+    price: "1.600",
+    fit: "Ideal para escolas de médio porte.",
+  },
+  {
+    name: "Plano Plus",
+    range: "701 a 1.500 alunos",
+    price: "2.400",
+    fit: "Ideal para escolas de grande porte.",
+  },
+]
+
 export default function Landing({ onAccess }: LandingProps) {
   const rootRef = useRef<HTMLDivElement>(null)
   const [scrolled, setScrolled] = useState(false)
@@ -275,6 +296,7 @@ export default function Landing({ onAccess }: LandingProps) {
         <nav aria-label="Seções da página">
           <a href="#proposito">Por que a Visto</a>
           <a href="#perfis">Perfis e rotina</a>
+          <a href="#planos">Planos</a>
         </nav>
         <button className="nav-access" type="button" onClick={accessDemo}>
           Ver demonstração <ArrowRight size={17} />
@@ -528,6 +550,54 @@ export default function Landing({ onAccess }: LandingProps) {
                 </div>
               </article>
             ))}
+          </div>
+        </section>
+
+        <section
+          className="pricing-section"
+          id="planos"
+          aria-labelledby="pricing-title"
+        >
+          <div className="pricing-heading" data-reveal="left">
+            <p className="section-index">Planos de assinatura</p>
+            <h2 id="pricing-title">
+              Uma faixa de adesão para cada tamanho de escola.
+            </h2>
+            <p>
+              A contratação é organizada pelo número de alunos. Assim, cada
+              escola identifica com clareza o plano compatível com seu porte.
+            </p>
+          </div>
+
+          <div className="pricing-grid" data-reveal="center">
+            {plans.map((plan) => (
+              <article className="pricing-plan" key={plan.name}>
+                <header>
+                  <p>Assinatura mensal</p>
+                  <h3>{plan.name}</h3>
+                </header>
+                <p className="plan-range">
+                  <UsersRound size={19} aria-hidden="true" />
+                  <strong>{plan.range}</strong>
+                </p>
+                <p
+                  className="plan-price"
+                  aria-label={`${plan.name}: R$ ${plan.price} por mês`}
+                >
+                  <span>R$</span>
+                  <strong>{plan.price}</strong>
+                  <small>/mês</small>
+                </p>
+                <p className="plan-fit">{plan.fit}</p>
+              </article>
+            ))}
+          </div>
+
+          <div className="pricing-action" data-reveal="center">
+            <p>Conheça a experiência antes de escolher o plano.</p>
+            <button className="primary-cta" type="button" onClick={accessDemo}>
+              Explorar demonstração <ArrowRight size={19} />
+            </button>
           </div>
         </section>
 

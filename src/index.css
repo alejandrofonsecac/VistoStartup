@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+@import 'tailwindcss';
+
+html, body {
+  font-family: 'Atkinson Hyperlegible', system-ui, sans-serif;
+  font-size: 16px;
+  background-color: #F7F6F3;
+  color: #23292E;
+  min-height: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Lexend', system-ui, sans-serif;
+}
+
+:focus-visible {
+  outline: 2px solid #3F6C7A;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.font-mono {
+  font-family: 'IBM Plex Mono', monospace !important;
+}
+
+/* Chat bubble scrolling */
+.chat-scroll {
+  scroll-behavior: smooth;
+}

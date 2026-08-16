@@ -265,6 +265,19 @@ button { font: inherit; }
 .pricing-action p { margin: 0; color: var(--visto-primary); font-family: "Lexend", sans-serif; font-size: 1.15rem; font-weight: 700; }
 .pricing-action .primary-cta { flex: 0 0 auto; }
 
+.contact-section { display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 0.72fr); align-items: center; gap: clamp(50px, 9vw, 150px); padding: clamp(100px, 13vw, 180px) clamp(24px, 8vw, 128px); border-top: 1px solid var(--visto-border); }
+.contact-intro { max-width: 760px; }
+.contact-intro h2 { margin: 0; color: var(--visto-primary); font-size: clamp(2.25rem, 5vw, 4.6rem); line-height: 1.08; letter-spacing: -0.035em; }
+.contact-intro > p:last-child { max-width: 620px; margin: 26px 0 0; color: var(--visto-muted); font-size: 1.15rem; line-height: 1.65; }
+.contact-card { padding: clamp(30px, 4vw, 48px); border: 1px solid var(--visto-primary); border-radius: 12px; background: var(--visto-primary); box-shadow: 0 22px 48px rgba(27, 58, 75, 0.16); }
+.contact-icon { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; color: var(--visto-primary); background: #fff; }
+.contact-label { margin: 30px 0 8px; color: #c7d9df; font-family: "IBM Plex Mono", monospace; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+.contact-email { display: inline-block; color: #fff !important; font-family: "Lexend", sans-serif; font-size: clamp(1.45rem, 2.6vw, 2rem); font-weight: 700; line-height: 1.2; overflow-wrap: anywhere; }
+.contact-email:hover { color: #d9edf4 !important; }
+.contact-copy { margin: 22px 0 0; color: #c7d9df; line-height: 1.55; }
+.contact-action { display: inline-flex; align-items: center; gap: 8px; min-height: 46px; margin-top: 30px; padding: 0 17px; border-radius: 8px; color: var(--visto-primary) !important; background: #fff; font-weight: 700; transition: transform 180ms ease, background 180ms ease; }
+.contact-action:hover { background: #d9edf4; transform: translateY(-2px); }
+
 .final-invite { display: grid; justify-items: center; margin: 0 clamp(16px, 4vw, 64px) 64px; padding: clamp(90px, 12vw, 160px) 24px; color: #fff; background: var(--visto-primary); text-align: center; }
 .invite-mark { display: grid; place-items: center; width: 132px; height: 104px; margin-bottom: 38px; border: 1px solid #87a5b1; border-radius: 50%; }
 .brand-symbol-invite { height: 82px; }
@@ -298,6 +311,7 @@ button { font: inherit; }
   .journey-entry { width: 52%; }
   .pricing-grid { grid-template-columns: 1fr; max-width: 680px; }
   .pricing-plan { min-height: 0; }
+  .contact-section { grid-template-columns: 1fr; max-width: 900px; }
 }
 
 @media (max-width: 760px) {
@@ -322,7 +336,8 @@ button { font: inherit; }
   .fragment-section,
   .journey-section,
   .profiles-section,
-  .pricing-section { padding-inline: 20px; }
+  .pricing-section,
+  .contact-section { padding-inline: 20px; }
   .fragment-section { min-height: auto; padding-block: 100px; }
   .section-intro h2,
   .journey-heading h2,
@@ -358,6 +373,8 @@ button { font: inherit; }
   .plan-price strong { font-size: clamp(2.8rem, 15vw, 4rem); }
   .pricing-action { align-items: stretch; flex-direction: column; }
   .pricing-action .primary-cta { width: 100%; }
+  .contact-section { gap: 40px; padding-block: 100px; }
+  .contact-card { padding: 30px 24px; }
   .final-invite { margin: 0 12px 30px; padding: 84px 20px; }
   .final-invite h2 { font-size: clamp(2.8rem, 13vw, 4.4rem); }
   .final-cta { width: 100%; }

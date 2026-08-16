@@ -5,6 +5,7 @@ import {
   Check,
   ChevronDown,
   Eye,
+  Mail,
   MessageCircleMore,
   PenLine,
   ShieldCheck,
@@ -298,6 +299,7 @@ export default function Landing({ onAccess }: LandingProps) {
           <a href="#proposito">Por que a Visto</a>
           <a href="#perfis">Perfis e rotina</a>
           <a href="#planos">Planos</a>
+          <a href="#contato">Contato</a>
         </nav>
         <button className="nav-access" type="button" onClick={accessDemo}>
           Ver demonstração <ArrowRight size={17} />
@@ -575,6 +577,28 @@ export default function Landing({ onAccess }: LandingProps) {
             <button className="primary-cta" type="button" onClick={accessDemo}>
               Explorar demonstração <ArrowRight size={19} />
             </button>
+          </div>
+        </section>
+
+        <section className="contact-section" id="contato" aria-labelledby="contact-title">
+          <div className="contact-intro" data-reveal="left">
+            <p className="section-index">Fale com a Visto</p>
+            <h2 id="contact-title">Vamos conversar sobre a sua escola?</h2>
+            <p>
+              Tire dúvidas, peça uma demonstração e descubra como a Visto pode
+              tornar o acompanhamento escolar mais próximo e organizado.
+            </p>
+          </div>
+          <div className="contact-card" data-reveal="right">
+            <div className="contact-icon" aria-hidden="true"><Mail size={22} /></div>
+            <p className="contact-label">Contato comercial e demonstrações</p>
+            <a className="contact-email" href="mailto:contato@visto.com.br?subject=Quero%20conhecer%20a%20Visto">
+              contato@visto.com.br
+            </a>
+            <p className="contact-copy">Nossa equipe responderá para entender o momento e as necessidades da sua instituição.</p>
+            <a className="contact-action" href="mailto:contato@visto.com.br?subject=Quero%20agendar%20uma%20demonstra%C3%A7%C3%A3o%20da%20Visto">
+              <Mail size={16} /> Enviar mensagem
+            </a>
           </div>
         </section>
 

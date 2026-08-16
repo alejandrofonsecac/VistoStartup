@@ -99,7 +99,8 @@ export type CalendarEventType = 'assignment' | 'project' | 'exam' | 'school-even
 
 export interface CalendarEvent {
   id: string
-  studentId: string
+  turmaId: string
+  studentId?: string
   title: string
   type: CalendarEventType
   date: string

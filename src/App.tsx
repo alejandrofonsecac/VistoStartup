@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import type { User, ViewName, Registro, Tarefa, Conversa, Aviso, Mensagem, CalendarEvent } from './types'
 import { USUARIOS, ALUNOS, TURMAS, REGISTROS_INICIAIS, TAREFAS_INICIAIS, CONVERSAS_INICIAIS, AVISOS_INICIAIS } from './data'
-import { CALENDAR_EVENTS } from './data/calendarEvents'
+import { CALENDAR_EVENTS, getCalendarEventsForStudent } from './data/calendarEvents'
 import Login from './components/Login'
 import Layout from './components/Layout'
 import CalendarModal from './components/calendar/CalendarModal'
@@ -116,7 +116,8 @@ export default function App() {
   const filhos = ALUNOS.filter(a => currentUser.filhosIds?.includes(a.id) ?? false)
   const alunoLogado = ALUNOS.find(a => a.turmaId === currentUser.turmaId && a.nome === currentUser.nome)
   const selectedStudent = filhos.find(filho => filho.id === filhoSelecionado) ?? filhos[0]
-  const calendarEvents = CALENDAR_EVENTS.filter(event => event.studentId === selectedStudent?.id)
+  const calendarStudent = currentUser.role === 'aluno' ? alunoLogado : selectedStudent
+  const calendarEvents = getCalendarEventsForStudent(CALENDAR_EVENTS, calendarStudent)
   const selectedCalendarEvent = calendarEvents.find(event => event.id === calendarSelectedEventId) ?? null
 
   const handleStudentChange = (studentId: string) => {

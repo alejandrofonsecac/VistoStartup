@@ -138,23 +138,49 @@ export const TAREFAS_INICIAIS: Tarefa[] = [
 export const CONVERSAS_INICIAIS: Conversa[] = [
   {
     id: 'c1',
-    professorId: 'u3', professorNome: 'Profa. Ana Costa',
-    responsavelId: 'u1', responsavelNome: 'Carlos Oliveira',
+    diretoriaId: 'u4', diretoriaNome: 'Fernanda Lima',
+    contatoId: 'u1', contatoNome: 'Carlos Oliveira', contatoRole: 'responsavel',
     alunoId: 'a1', alunoNome: 'Lucas Oliveira',
     mensagens: [
-      { id: 'm1', remetenteId: 'u3', remetenteNome: 'Profa. Ana Costa', texto: 'Bom dia, Sr. Carlos! Gostaria de conversar sobre o desempenho do Lucas nas últimas provas.', dataHora: '2026-08-13T08:30:00' },
-      { id: 'm2', remetenteId: 'u1', remetenteNome: 'Carlos Oliveira', texto: 'Bom dia, professora! Claro, fique à vontade. Fiquei preocupado também ao ver as notas.', dataHora: '2026-08-13T09:15:00' },
-      { id: 'm3', remetenteId: 'u3', remetenteNome: 'Profa. Ana Costa', texto: 'Ele tirou 5,5 na última prova. Percebo que ele tem dificuldade com frações. Sugiro que faça as atividades extras que enviei pelo sistema. Há uma recuperação marcada para o dia 20.', dataHora: '2026-08-13T09:20:00' },
-      { id: 'm4', remetenteId: 'u1', remetenteNome: 'Carlos Oliveira', texto: 'Entendido. Vou ajudá-lo em casa. Obrigado por me avisar, professora. Pode contar com o nosso apoio.', dataHora: '2026-08-13T09:45:00' },
+      { id: 'm1', remetenteId: 'u4', remetenteNome: 'Fernanda Lima', texto: 'Bom dia, Sr. Carlos! A diretoria gostaria de conversar sobre o acompanhamento do Lucas nas últimas avaliações.', dataHora: '2026-08-13T08:30:00' },
+      { id: 'm2', remetenteId: 'u1', remetenteNome: 'Carlos Oliveira', texto: 'Bom dia! Claro, fique à vontade. Fiquei preocupado também ao ver as notas.', dataHora: '2026-08-13T09:15:00' },
+      { id: 'm3', remetenteId: 'u4', remetenteNome: 'Fernanda Lima', texto: 'A equipe pedagógica nos informou que ele pode se beneficiar das atividades extras disponíveis no sistema. Estamos acompanhando o caso.', dataHora: '2026-08-13T09:20:00' },
+      { id: 'm4', remetenteId: 'u1', remetenteNome: 'Carlos Oliveira', texto: 'Entendido. Vou ajudá-lo em casa. Obrigado pelo aviso.', dataHora: '2026-08-13T09:45:00' },
     ],
   },
   {
     id: 'c2',
-    professorId: 'u3', professorNome: 'Profa. Ana Costa',
-    responsavelId: 'u6', responsavelNome: 'Beatriz Santos',
+    diretoriaId: 'u4', diretoriaNome: 'Fernanda Lima',
+    contatoId: 'u6', contatoNome: 'Beatriz Santos', contatoRole: 'responsavel',
     alunoId: 'a3', alunoNome: 'Marina Santos',
     mensagens: [
-      { id: 'm5', remetenteId: 'u3', remetenteNome: 'Profa. Ana Costa', texto: 'Boa tarde, Sra. Beatriz. Gostaria de conversar sobre a concentração da Marina em sala.', dataHora: '2026-08-13T14:00:00' },
+      { id: 'm5', remetenteId: 'u4', remetenteNome: 'Fernanda Lima', texto: 'Boa tarde, Sra. Beatriz. A diretoria gostaria de conversar sobre o acompanhamento da Marina em sala.', dataHora: '2026-08-13T14:00:00' },
+    ],
+  },
+  {
+    id: 'c3',
+    diretoriaId: 'u4', diretoriaNome: 'Fernanda Lima',
+    contatoId: 'u1', contatoNome: 'Carlos Oliveira', contatoRole: 'responsavel',
+    alunoId: 'a2', alunoNome: 'Sofia Oliveira',
+    mensagens: [
+      { id: 'm6', remetenteId: 'u1', remetenteNome: 'Carlos Oliveira', texto: 'Olá, gostaria de tirar uma dúvida sobre as atividades da Sofia.', dataHora: '2026-08-14T10:15:00' },
+      { id: 'm7', remetenteId: 'u4', remetenteNome: 'Fernanda Lima', texto: 'Olá, Sr. Carlos. A diretoria está à disposição para ajudar e fará o encaminhamento pedagógico quando necessário.', dataHora: '2026-08-14T11:00:00' },
+    ],
+  },
+  {
+    id: 'c4',
+    diretoriaId: 'u4', diretoriaNome: 'Fernanda Lima',
+    contatoId: 'u3', contatoNome: 'Ana Costa', contatoRole: 'professor',
+    mensagens: [
+      { id: 'm8', remetenteId: 'u4', remetenteNome: 'Fernanda Lima', texto: 'Ana, precisamos alinhar o acompanhamento pedagógico da turma nesta semana.', dataHora: '2026-08-14T08:00:00' },
+    ],
+  },
+  {
+    id: 'c5',
+    diretoriaId: 'u4', diretoriaNome: 'Fernanda Lima',
+    contatoId: 'u5', contatoNome: 'Roberto Ferreira', contatoRole: 'professor',
+    mensagens: [
+      { id: 'm9', remetenteId: 'u5', remetenteNome: 'Roberto Ferreira', texto: 'Bom dia, gostaria de atualizar a diretoria sobre as atividades de leitura.', dataHora: '2026-08-14T09:10:00' },
     ],
   },
 ]

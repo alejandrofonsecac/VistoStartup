@@ -26,7 +26,7 @@ export default function ProfessorView({
   const minhasTurmas = turmas.filter(t => t.professorIds.includes(user.id))
   const meusAlunos = alunos.filter(a => minhasTurmas.some(t => t.alunoIds.includes(a.id)))
   const meusRegistros = registros.filter(r => r.professorId === user.id).sort((a, b) => b.dataHora.localeCompare(a.dataHora))
-  const minhasConversas = conversas.filter(c => c.professorId === user.id)
+  const minhasConversas = conversas.filter(c => c.contatoRole === 'professor' && c.contatoId === user.id)
 
   if (currentView === 'inicio') {
     return (
@@ -395,8 +395,12 @@ function ChatProfessor({ conversas, user, alunos, onEnviarMensagem }: {
   const conversa = conversas.find(c => c.id === conversaSelecionada)
 
   useEffect(() => {
+    if (!conversa) setConversaSelecionada(conversas[0]?.id ?? '')
+  }, [conversa, conversas])
+
+  useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [conversa?.mensagens.length])
+  }, [conversa?.id, conversa?.mensagens.length])
 
   const enviar = () => {
     if (!texto.trim() || !conversaSelecionada) return
@@ -405,35 +409,35 @@ function ChatProfessor({ conversas, user, alunos, onEnviarMensagem }: {
   }
 
   return (
-    <div className="flex flex-col h-[calc(100vh-3.5rem)] md:h-screen">
-      <PageHeader title="Chat com responsáveis" subtitle="Conversas individuais por aluno" />
-      <div className="flex flex-1 overflow-hidden mx-6 my-4 rounded-lg" style={{ border: '1px solid #E4E2DD' }}>
-        <div className="w-56 shrink-0 overflow-y-auto" style={{ borderRight: '1px solid #E4E2DD', backgroundColor: '#FAFAFA' }}>
+    <div className="flex flex-col h-[calc(100dvh-8.5rem)] md:h-screen min-h-0 overflow-hidden">
+      <PageHeader title="Chat com a Diretoria" subtitle="Canal direto com a gestão escolar" />
+      <div className="flex flex-col md:flex-row flex-1 min-h-0 overflow-hidden mx-4 md:mx-6 my-4 rounded-lg" style={{ border: '1px solid #E4E2DD' }}>
+        <div className="flex shrink-0 overflow-x-auto scrollbar-hide border-b md:block md:w-56 md:overflow-y-auto md:border-b-0 md:border-r" style={{ borderColor: '#E4E2DD', backgroundColor: '#FAFAFA' }}>
           {conversas.length === 0 && (
             <div className="p-4 text-xs text-center" style={{ color: '#5C6469' }}>Nenhuma conversa ainda.</div>
           )}
           {conversas.map(c => (
             <button key={c.id} onClick={() => setConversaSelecionada(c.id)}
-              className="w-full text-left px-4 py-3 border-b transition-colors"
+              className="min-w-40 shrink-0 text-left px-4 py-3 border-r md:min-w-0 md:w-full md:border-r-0 md:border-b transition-colors"
               style={{ borderBottomColor: '#E4E2DD', backgroundColor: conversaSelecionada === c.id ? '#EEF4F6' : 'transparent' }}>
-              <p className="text-xs font-semibold truncate" style={{ color: '#23292E' }}>{c.alunoNome}</p>
-              <p className="text-xs truncate" style={{ color: '#5C6469' }}>{c.responsavelNome}</p>
+              <p className="text-xs font-semibold truncate" style={{ color: '#23292E' }}>Diretoria</p>
+              <p className="text-xs truncate" style={{ color: '#5C6469' }}>{c.diretoriaNome}</p>
             </button>
           ))}
         </div>
         {conversa ? (
-          <div className="flex-1 flex flex-col min-w-0">
-            <div className="px-4 py-3" style={{ borderBottom: '1px solid #E4E2DD' }}>
-              <p className="text-sm font-semibold" style={{ color: '#23292E', fontFamily: 'Lexend, sans-serif' }}>{conversa.alunoNome}</p>
-              <p className="text-xs" style={{ color: '#5C6469' }}>Responsável: {conversa.responsavelNome}</p>
+          <div className="flex-1 flex flex-col min-w-0 min-h-0">
+            <div className="min-w-0 px-4 py-3" style={{ borderBottom: '1px solid #E4E2DD' }}>
+              <p className="text-sm font-semibold truncate" style={{ color: '#23292E', fontFamily: 'Lexend, sans-serif' }}>Diretoria</p>
+              <p className="text-xs truncate" style={{ color: '#5C6469' }}>{conversa.diretoriaNome}</p>
             </div>
-            <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3 chat-scroll scrollbar-hide" style={{ backgroundColor: '#F7F6F3' }}>
+            <div className="flex-1 min-h-0 min-w-0 overflow-y-auto px-3 sm:px-4 py-4 space-y-3 chat-scroll scrollbar-hide" style={{ backgroundColor: '#F7F6F3' }}>
               {conversa.mensagens.map(m => {
                 const mine = m.remetenteId === user.id
                 return (
                   <div key={m.id} className={`flex flex-col ${mine ? 'items-end' : 'items-start'}`}>
                     <p className="text-xs mb-1" style={{ color: '#5C6469' }}>{m.remetenteNome}</p>
-                    <div className="max-w-xs lg:max-w-sm px-4 py-2.5 rounded-xl text-sm leading-relaxed"
+                    <div className="max-w-[85%] sm:max-w-xs lg:max-w-sm break-words px-4 py-2.5 rounded-xl text-sm leading-relaxed"
                       style={{ backgroundColor: mine ? '#1B3A4B' : '#fff', color: mine ? '#fff' : '#23292E', border: mine ? 'none' : '1px solid #E4E2DD' }}>
                       {m.texto}
                     </div>
@@ -443,13 +447,13 @@ function ChatProfessor({ conversas, user, alunos, onEnviarMensagem }: {
               })}
               <div ref={messagesEndRef} />
             </div>
-            <div className="px-4 py-3 bg-white flex gap-2" style={{ borderTop: '1px solid #E4E2DD' }}>
+            <div className="px-3 sm:px-4 py-3 bg-white flex gap-2" style={{ borderTop: '1px solid #E4E2DD' }}>
               <input value={texto} onChange={e => setTexto(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && !e.shiftKey && enviar()}
                 placeholder="Escreva uma mensagem…"
-                className="flex-1 px-4 py-2 rounded-lg text-sm"
+                className="flex-1 min-w-0 px-4 py-2 rounded-lg text-sm"
                 style={{ border: '1px solid #E4E2DD', backgroundColor: '#F7F6F3', color: '#23292E', outline: 'none' }} />
-              <button onClick={enviar} disabled={!texto.trim()} className="px-3 py-2 rounded-lg flex items-center gap-2"
+              <button onClick={enviar} disabled={!texto.trim()} className="shrink-0 px-3 py-2 rounded-lg flex items-center gap-2"
                 style={{ backgroundColor: texto.trim() ? '#1B3A4B' : '#E4E2DD', color: '#fff' }}>
                 <Send size={15} />
                 <span className="text-sm hidden sm:inline">Enviar</span>

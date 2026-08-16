@@ -1,8 +1,7 @@
-import { useState } from 'react'
-import { AlertTriangle, Users, School, LayoutDashboard, CheckCircle2, TrendingUp, Eye } from 'lucide-react'
-import type { User, Aluno, Turma, Registro, Aviso, ViewName } from '../types'
-import { PageHeader, Card, CategoriaBadge, formatDate } from '../components/Layout'
-import { USUARIOS } from '../data'
+import { useEffect, useRef, useState } from 'react'
+import { AlertTriangle, ArrowLeft, Users, School, CheckCircle2, TrendingUp, Eye, Send } from 'lucide-react'
+import type { User, Aluno, Turma, Registro, Aviso, Conversa, ViewName } from '../types'
+import { PageHeader, Card, CategoriaBadge, formatDate, formatTime } from '../components/Layout'
 
 interface Props {
   user: User
@@ -11,6 +10,9 @@ interface Props {
   turmas: Turma[]
   registros: Registro[]
   avisos: Aviso[]
+  conversas: Conversa[]
+  onEnviarMensagem: (conversaId: string, texto: string) => void
+  onAbrirConversa: (contato: User, alunoId?: string) => string
   currentView: ViewName
 }
 
@@ -28,7 +30,7 @@ const roleColors: Record<string, { bg: string; text: string }> = {
   admin: { bg: '#F5F0E8', text: '#7A5C2E' },
 }
 
-export default function AdminView({ user, todos_usuarios, alunos, turmas, registros, avisos, currentView }: Props) {
+export default function AdminView({ user, todos_usuarios, alunos, turmas, registros, avisos, conversas, onEnviarMensagem, onAbrirConversa, currentView }: Props) {
   const alertasImportantes = registros.filter(r => r.urgencia === 'Importante' && !r.vistoResponsavel)
   const totalRegistrosSemana = registros.filter(r => {
     const d = new Date(r.dataHora)
@@ -131,6 +133,10 @@ export default function AdminView({ user, todos_usuarios, alunos, turmas, regist
     return <GestaoTurmas turmas={turmas} alunos={alunos} todos_usuarios={todos_usuarios} />
   }
 
+  if (currentView === 'chat') {
+    return <ChatDiretoria conversas={conversas} user={user} usuarios={todos_usuarios} alunos={alunos} turmas={turmas} onEnviarMensagem={onEnviarMensagem} onAbrirConversa={onAbrirConversa} />
+  }
+
   if (currentView === 'avisos') {
     return (
       <div>
@@ -168,6 +174,225 @@ export default function AdminView({ user, todos_usuarios, alunos, turmas, regist
   }
 
   return null
+}
+
+type ContactFilter = 'responsavel' | 'professor'
+
+function ChatDiretoria({ conversas, user, usuarios, alunos, turmas, onEnviarMensagem, onAbrirConversa }: {
+  conversas: Conversa[]
+  user: User
+  usuarios: User[]
+  alunos: Aluno[]
+  turmas: Turma[]
+  onEnviarMensagem: (conversaId: string, texto: string) => void
+  onAbrirConversa: (contato: User, alunoId?: string) => string
+}) {
+  const [filter, setFilter] = useState<ContactFilter>('responsavel')
+  const [turmaSelecionada, setTurmaSelecionada] = useState('')
+  const [conversaSelecionada, setConversaSelecionada] = useState('')
+  const [texto, setTexto] = useState('')
+  const [mobileChatOpen, setMobileChatOpen] = useState(false)
+  const messagesEndRef = useRef<HTMLDivElement>(null)
+  const responsaveisDaTurma = (turmaId: string) => usuarios.filter(usuario =>
+    usuario.role === 'responsavel' && alunos.some(aluno => aluno.turmaId === turmaId && aluno.responsavelIds.includes(usuario.id))
+  )
+  const turmasComResponsaveis = turmas.filter(turma => responsaveisDaTurma(turma.id).length > 0)
+  const responsaveis = turmaSelecionada ? responsaveisDaTurma(turmaSelecionada) : []
+  const professores = usuarios.filter(usuario => usuario.role === 'professor')
+  const turma = turmas.find(item => item.id === turmaSelecionada)
+  const conversa = conversas.find(item => item.id === conversaSelecionada)
+  const contatoDaConversa = usuarios.find(usuario => usuario.id === conversa?.contatoId)
+  const alunoDaConversa = alunos.find(aluno => aluno.id === conversa?.alunoId)
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [conversa?.id, conversa?.mensagens.length])
+
+  const enviar = () => {
+    if (!texto.trim() || !conversaSelecionada) return
+    onEnviarMensagem(conversaSelecionada, texto.trim())
+    setTexto('')
+  }
+
+  const selecionarFiltro = (novoFiltro: ContactFilter) => {
+    setFilter(novoFiltro)
+    setTurmaSelecionada('')
+    setConversaSelecionada('')
+    setTexto('')
+    setMobileChatOpen(false)
+  }
+
+  const selecionarTurma = (turmaId: string) => {
+    setTurmaSelecionada(turmaId)
+    setConversaSelecionada('')
+    setTexto('')
+    setMobileChatOpen(false)
+  }
+
+  const selecionarContato = (contato: User, alunoId?: string) => {
+    const conversaId = onAbrirConversa(contato, alunoId)
+    setConversaSelecionada(conversaId)
+    setTexto('')
+    setMobileChatOpen(true)
+  }
+
+  const voltarParaLista = () => {
+    setMobileChatOpen(false)
+    setTexto('')
+  }
+
+  return (
+    <div className="flex flex-col h-[calc(100dvh-8.5rem)] md:h-screen min-h-0 overflow-hidden">
+      <div className={mobileChatOpen ? 'hidden md:block' : ''}>
+        <PageHeader title="Chat da Diretoria" subtitle="Conversas com responsáveis e professores" />
+      </div>
+      <div className={`${mobileChatOpen ? 'hidden md:block' : ''} sticky top-0 z-10 shrink-0 bg-[#F7F6F3]`}>
+        <div className="flex gap-2 px-4 sm:px-6 pt-4">
+          {(['responsavel', 'professor'] as ContactFilter[]).map(option => (
+            <button
+              key={option}
+              type="button"
+              onClick={() => selecionarFiltro(option)}
+              className="px-3 py-1.5 rounded-full text-xs font-semibold transition-colors"
+              style={{ backgroundColor: filter === option ? '#1B3A4B' : '#fff', color: filter === option ? '#fff' : '#5C6469', border: '1px solid #E4E2DD' }}
+            >
+              {option === 'responsavel' ? 'Responsáveis' : 'Professores'}
+            </button>
+          ))}
+        </div>
+        {filter === 'responsavel' && (
+          <div className="px-4 sm:px-6 pt-3">
+            <p className="mb-2 text-xs font-semibold" style={{ color: '#5C6469' }}>Selecione uma turma</p>
+            <div className="flex flex-wrap gap-2">
+              {turmasComResponsaveis.map(item => (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => selecionarTurma(item.id)}
+                  aria-pressed={turmaSelecionada === item.id}
+                  className="px-3 py-1.5 rounded-full text-xs font-semibold transition-colors"
+                  style={{ backgroundColor: turmaSelecionada === item.id ? '#EEF4F6' : '#fff', color: turmaSelecionada === item.id ? '#1B3A4B' : '#5C6469', border: '1px solid #E4E2DD' }}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+      <div className={`flex flex-col md:flex-row flex-1 min-h-0 overflow-hidden ${mobileChatOpen ? 'mx-0 my-0 rounded-none md:mx-6 md:my-4 md:rounded-lg' : 'mx-4 md:mx-6 my-4 rounded-lg'}`} style={{ border: '1px solid #E4E2DD' }}>
+        <div className={`${mobileChatOpen ? 'hidden' : 'flex-1'} min-h-0 shrink-0 overflow-x-hidden overflow-y-auto border-b md:block md:flex-none md:max-h-none md:w-64 md:border-b-0 md:border-r`} style={{ borderColor: '#E4E2DD', backgroundColor: '#FAFAFA' }}>
+          {filter === 'responsavel' && !turmaSelecionada && (
+            <p className="p-4 text-xs text-center" style={{ color: '#5C6469' }}>Escolha uma turma acima para ver os responsáveis.</p>
+          )}
+
+          {filter === 'responsavel' && turmaSelecionada && (
+            <>
+              <p className="px-4 pt-4 pb-2 text-xs font-semibold" style={{ color: '#5C6469' }}>Responsáveis — {turma?.label}</p>
+              {responsaveis.map(responsavel => {
+                const alunoDaTurma = alunos.find(aluno => aluno.turmaId === turmaSelecionada && aluno.responsavelIds.includes(responsavel.id))
+                const conversaDaTurma = conversas.find(item => item.contatoRole === 'responsavel' && item.contatoId === responsavel.id && item.alunoId === alunoDaTurma?.id)
+                return (
+                  <button
+                    key={responsavel.id}
+                    type="button"
+                    onClick={() => selecionarContato(responsavel, alunoDaTurma?.id)}
+                    className="w-full min-w-0 text-left px-4 py-3 border-b transition-colors"
+                    style={{ borderColor: '#E4E2DD', backgroundColor: conversaSelecionada === conversaDaTurma?.id ? '#EEF4F6' : 'transparent' }}
+                  >
+                    <p className="text-sm font-semibold truncate" style={{ color: '#23292E' }}>{responsavel.nome}</p>
+                  </button>
+                )
+              })}
+            </>
+          )}
+
+          {filter === 'professor' && (
+            <>
+              <p className="px-4 pt-4 pb-2 text-xs font-semibold" style={{ color: '#5C6469' }}>Professores da escola</p>
+              {professores.map(professor => {
+                const conversaDoProfessor = conversas.find(item => item.contatoRole === 'professor' && item.contatoId === professor.id)
+                return (
+                  <button
+                    key={professor.id}
+                    type="button"
+                    onClick={() => selecionarContato(professor)}
+                    className="w-full min-w-0 text-left px-4 py-3 border-b transition-colors"
+                    style={{ borderColor: '#E4E2DD', backgroundColor: conversaSelecionada === conversaDoProfessor?.id ? '#F0EEF6' : 'transparent' }}
+                  >
+                    <p className="text-sm font-semibold truncate" style={{ color: '#23292E' }}>{professor.nome}</p>
+                    <p className="mt-0.5 text-xs truncate" style={{ color: '#5C6469' }}>{professor.materia ?? 'Matéria não informada'}</p>
+                  </button>
+                )
+              })}
+              {professores.length === 0 && <p className="p-4 text-xs text-center" style={{ color: '#5C6469' }}>Nenhum professor cadastrado.</p>}
+            </>
+          )}
+        </div>
+        {conversa ? (
+          <div className={`${mobileChatOpen ? 'flex' : 'hidden'} flex-1 flex-col min-w-0 min-h-0 md:flex`}>
+            <div className="flex items-center gap-3 min-w-0 px-4 py-3" style={{ borderBottom: '1px solid #E4E2DD' }}>
+              <button
+                type="button"
+                onClick={voltarParaLista}
+                className="md:hidden shrink-0 p-1 -ml-1"
+                style={{ color: '#1B3A4B' }}
+                aria-label="Voltar para contatos"
+              >
+                <ArrowLeft size={20} />
+              </button>
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 min-w-0">
+                <p className="text-sm font-semibold truncate" style={{ color: '#23292E', fontFamily: 'Lexend, sans-serif' }}>{conversa.contatoNome}</p>
+                {conversa.contatoRole === 'responsavel' ? (
+                  <>
+                    {alunoDaConversa && <span className="text-xs" style={{ color: '#5C6469' }}>Responsável de: {alunoDaConversa.nome}</span>}
+                    {alunoDaConversa && <span className="text-xs" style={{ color: '#5C6469' }}>• {alunoDaConversa.turmaLabel}</span>}
+                  </>
+                ) : (
+                  <span className="text-xs" style={{ color: '#5C6469' }}>{contatoDaConversa?.materia ?? 'Matéria não informada'}</span>
+                )}
+              </div>
+            </div>
+            <div className="flex-1 min-h-0 min-w-0 overflow-y-auto px-3 sm:px-4 py-4 space-y-3 chat-scroll scrollbar-hide" style={{ backgroundColor: '#F7F6F3' }}>
+              {conversa.mensagens.map(mensagem => {
+                const mine = mensagem.remetenteId === user.id
+                return (
+                  <div key={mensagem.id} className={`flex flex-col ${mine ? 'items-end' : 'items-start'}`}>
+                    <p className="text-xs mb-1" style={{ color: '#5C6469' }}>{mensagem.remetenteNome}</p>
+                    <div className="max-w-[85%] sm:max-w-xs lg:max-w-sm break-words px-4 py-2.5 rounded-xl text-sm leading-relaxed" style={{ backgroundColor: mine ? '#1B3A4B' : '#fff', color: mine ? '#fff' : '#23292E', border: mine ? 'none' : '1px solid #E4E2DD' }}>
+                      {mensagem.texto}
+                    </div>
+                    <p className="text-xs mt-1 font-mono" style={{ color: '#5C6469' }}>{formatTime(mensagem.dataHora)}</p>
+                  </div>
+                )
+              })}
+              <div ref={messagesEndRef} />
+            </div>
+            <div className="px-3 sm:px-4 py-3 bg-white flex gap-2" style={{ borderTop: '1px solid #E4E2DD' }}>
+              <input
+                value={texto}
+                onChange={event => setTexto(event.target.value)}
+                onKeyDown={event => event.key === 'Enter' && !event.shiftKey && enviar()}
+                placeholder="Escreva uma mensagem..."
+                className="flex-1 min-w-0 px-4 py-2 rounded-lg text-sm"
+                style={{ border: '1px solid #E4E2DD', backgroundColor: '#F7F6F3', color: '#23292E', outline: 'none' }}
+              />
+              <button type="button" onClick={enviar} disabled={!texto.trim()} className="shrink-0 px-3 py-2 rounded-lg flex items-center gap-2" style={{ backgroundColor: texto.trim() ? '#1B3A4B' : '#E4E2DD', color: '#fff' }}>
+                <Send size={15} />
+                <span className="text-sm hidden sm:inline">Enviar</span>
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className={`${mobileChatOpen ? 'flex' : 'hidden'} flex-1 items-center justify-center px-4 text-center md:flex`}>
+            <p className="text-sm" style={{ color: '#5C6469' }}>
+              {filter === 'responsavel' && !turmaSelecionada ? 'Selecione uma turma para ver os responsáveis.' : 'Selecione um contato para iniciar a conversa.'}
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
+  )
 }
 
 function GestaoUsuarios({ usuarios, alunos }: { usuarios: User[]; alunos: Aluno[] }) {

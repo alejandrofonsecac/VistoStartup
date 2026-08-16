@@ -83,6 +83,38 @@ export default function App() {
     ))
   }
 
+  const handleAbrirConversaDiretoria = (contato: User, alunoId?: string) => {
+    if (!currentUser || currentUser.role !== 'admin') return ''
+
+    const contatoRole = contato.role === 'responsavel' ? 'responsavel' : contato.role === 'professor' ? 'professor' : null
+    if (!contatoRole) return ''
+
+    const conversaExistente = conversas.find(conversa =>
+      conversa.diretoriaId === currentUser.id &&
+      conversa.contatoId === contato.id &&
+      conversa.contatoRole === contatoRole &&
+      (contatoRole === 'professor' || conversa.alunoId === alunoId)
+    )
+
+    if (conversaExistente) return conversaExistente.id
+
+    const aluno = ALUNOS.find(item => item.id === alunoId)
+    const conversaId = `c_${Date.now()}`
+    const novaConversa: Conversa = {
+      id: conversaId,
+      diretoriaId: currentUser.id,
+      diretoriaNome: currentUser.nome,
+      contatoId: contato.id,
+      contatoNome: contato.nome,
+      contatoRole,
+      ...(aluno ? { alunoId: aluno.id, alunoNome: aluno.nome } : {}),
+      mensagens: [],
+    }
+
+    setConversas(prev => [...prev, novaConversa])
+    return conversaId
+  }
+
   const handleNovoRegistro = (r: Omit<Registro, 'id' | 'vistoResponsavel'>) => {
     const novo: Registro = { ...r, id: `r_${Date.now()}`, vistoResponsavel: false }
     setRegistros(prev => [novo, ...prev])
@@ -223,6 +255,9 @@ export default function App() {
           turmas={TURMAS}
           registros={registros}
           avisos={avisos}
+          conversas={conversas}
+          onEnviarMensagem={handleEnviarMensagem}
+          onAbrirConversa={handleAbrirConversaDiretoria}
           currentView={currentView}
         />
       )}

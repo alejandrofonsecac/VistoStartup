@@ -76,12 +76,13 @@ export interface Mensagem {
 
 export interface Conversa {
   id: string
-  professorId: string
-  professorNome: string
-  responsavelId: string
-  responsavelNome: string
-  alunoId: string
-  alunoNome: string
+  diretoriaId: string
+  diretoriaNome: string
+  contatoId: string
+  contatoNome: string
+  contatoRole: 'responsavel' | 'professor'
+  alunoId?: string
+  alunoNome?: string
   mensagens: Mensagem[]
 }
 

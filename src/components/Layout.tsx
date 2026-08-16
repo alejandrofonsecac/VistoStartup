@@ -41,6 +41,7 @@ function getNavItems(role: string): NavItem[] {
         { view: 'painel', label: 'Painel Geral', icon: <LayoutDashboard size={18} /> },
         { view: 'usuarios', label: 'Usuários', icon: <Users size={18} /> },
         { view: 'turmas', label: 'Turmas', icon: <School size={18} /> },
+        { view: 'chat', label: 'Chat', icon: <MessageCircle size={18} /> },
         { view: 'avisos', label: 'Alertas', icon: <AlertTriangle size={18} /> },
       ]
     default:

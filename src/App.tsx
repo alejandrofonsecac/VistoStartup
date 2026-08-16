@@ -31,7 +31,8 @@ function defaultView(role: string): ViewName {
 }
 
 export default function App() {
-  const [showLanding, setShowLanding] = useState(true)
+  const isDirectDemo = window.location.pathname.replace(/\/+$/, "") === "/demo"
+  const [showLanding, setShowLanding] = useState(!isDirectDemo)
   const [currentUser, setCurrentUser] = useState<User | null>(null)
   const [currentView, setCurrentView] = useState<ViewName>("inicio")
 

@@ -5,7 +5,6 @@ import {
   Check,
   ChevronDown,
   Eye,
-  Mail,
   MessageCircleMore,
   PenLine,
   ShieldCheck,
@@ -590,14 +589,14 @@ export default function Landing({ onAccess }: LandingProps) {
             </p>
           </div>
           <div className="contact-card" data-reveal="right">
-            <div className="contact-icon" aria-hidden="true"><Mail size={22} /></div>
-            <p className="contact-label">Contato comercial e demonstrações</p>
-            <a className="contact-email" href="mailto:contato@visto.com.br?subject=Quero%20conhecer%20a%20Visto">
-              contato@visto.com.br
+            <div className="contact-icon" aria-hidden="true"><MessageCircleMore size={22} /></div>
+            <p className="contact-label">WhatsApp para demonstrações</p>
+            <a className="contact-whatsapp" href="https://wa.me/5547989174587?text=Ol%C3%A1%2C%20quero%20conhecer%20a%20Visto." target="_blank" rel="noreferrer">
+              (47) 98917-4587
             </a>
             <p className="contact-copy">Nossa equipe responderá para entender o momento e as necessidades da sua instituição.</p>
-            <a className="contact-action" href="mailto:contato@visto.com.br?subject=Quero%20agendar%20uma%20demonstra%C3%A7%C3%A3o%20da%20Visto">
-              <Mail size={16} /> Enviar mensagem
+            <a className="contact-action" href="https://wa.me/5547989174587?text=Ol%C3%A1%2C%20quero%20agendar%20uma%20demonstra%C3%A7%C3%A3o%20da%20Visto." target="_blank" rel="noreferrer">
+              <MessageCircleMore size={16} /> Enviar mensagem no WhatsApp
             </a>
           </div>
         </section>

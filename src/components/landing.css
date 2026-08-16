@@ -272,8 +272,8 @@ button { font: inherit; }
 .contact-card { padding: clamp(30px, 4vw, 48px); border: 1px solid var(--visto-primary); border-radius: 12px; background: var(--visto-primary); box-shadow: 0 22px 48px rgba(27, 58, 75, 0.16); }
 .contact-icon { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; color: var(--visto-primary); background: #fff; }
 .contact-label { margin: 30px 0 8px; color: #c7d9df; font-family: "IBM Plex Mono", monospace; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
-.contact-email { display: inline-block; color: #fff !important; font-family: "Lexend", sans-serif; font-size: clamp(1.45rem, 2.6vw, 2rem); font-weight: 700; line-height: 1.2; overflow-wrap: anywhere; }
-.contact-email:hover { color: #d9edf4 !important; }
+.contact-whatsapp { display: inline-block; color: #fff !important; font-family: "Lexend", sans-serif; font-size: clamp(1.45rem, 2.6vw, 2rem); font-weight: 700; line-height: 1.2; overflow-wrap: anywhere; }
+.contact-whatsapp:hover { color: #d9edf4 !important; }
 .contact-copy { margin: 22px 0 0; color: #c7d9df; line-height: 1.55; }
 .contact-action { display: inline-flex; align-items: center; gap: 8px; min-height: 46px; margin-top: 30px; padding: 0 17px; border-radius: 8px; color: var(--visto-primary) !important; background: #fff; font-weight: 700; transition: transform 180ms ease, background 180ms ease; }
 .contact-action:hover { background: #d9edf4; transform: translateY(-2px); }

@@ -208,7 +208,7 @@ export default function ResponsavelView({
             ))}
           </div>
 
-          <div className="space-y-3 max-w-2xl">
+          <div className="space-y-3 max-w-2xl mx-auto">
             {filtrados.length === 0 && (
               <p className="text-sm py-8 text-center" style={{ color: '#5C6469' }}>Nenhum registro encontrado.</p>
             )}
@@ -241,7 +241,7 @@ export default function ResponsavelView({
       <div>
         <PageHeader title="Tarefas" subtitle={`Atividades de ${filho?.nome}`} />
         <SeletorFilhos />
-        <div className="px-6 py-5 space-y-3 max-w-2xl">
+        <div className="px-6 py-5 space-y-3 max-w-2xl mx-auto">
           {tarefasFilho.length === 0 && <p className="text-sm py-8 text-center" style={{ color: '#5C6469' }}>Nenhuma tarefa no momento.</p>}
           {tarefasFilho.map(t => {
             const dias = Math.ceil((new Date(t.dataEntrega).getTime() - Date.now()) / 86400000)
@@ -295,7 +295,7 @@ export default function ResponsavelView({
       <div>
         <PageHeader title="Avisos" subtitle="Comunicados da escola e dos professores" />
         <SeletorFilhos />
-        <div className="px-6 py-5 space-y-3 max-w-2xl">
+        <div className="px-6 py-5 space-y-3 max-w-2xl mx-auto">
           {avisosVisiveis.length === 0 && <p className="text-sm py-8 text-center" style={{ color: '#5C6469' }}>Nenhum aviso no momento.</p>}
           {avisosVisiveis.map(av => {
             const visto = avisosVistos.has(av.id)

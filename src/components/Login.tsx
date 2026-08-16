@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { GraduationCap, Eye, EyeOff, AlertCircle } from 'lucide-react';
+import { GraduationCap, Eye, EyeOff, AlertCircle, Accessibility } from 'lucide-react';
 import { CREDENCIAIS, USUARIOS } from '../data';
 import type { User } from '../types';
 import logoSemSlogan from '../images/LogoSemSlogan.png';
@@ -9,10 +9,10 @@ interface Props {
 }
 
 const DEMO_CARDS = [
-  { label: 'Responsável', email: 'responsavel@escola.edu.br', desc: 'Carlos Oliveira (pai de Lucas e Sofia)', color: '#1B3A4B' },
-  { label: 'Aluno', email: 'aluno@escola.edu.br', desc: 'Lucas Oliveira — 8º Ano A', color: '#3F6C7A' },
-  { label: 'Professor', email: 'professor@escola.edu.br', desc: 'Profa. Ana Costa — Matemática', color: '#3D6E52' },
-  { label: 'Coordenação', email: 'admin@escola.edu.br', desc: 'Fernanda Lima — Diretora', color: '#5C6469' },
+  { label: 'Responsável', email: 'responsavel@escola.edu.br', color: '#1B3A4B' },
+  { label: 'Aluno', email: 'aluno@escola.edu.br', color: '#3F6C7A' },
+  { label: 'Professor', email: 'professor@escola.edu.br', color: '#3D6E52' },
+  { label: 'Coordenação', email: 'admin@escola.edu.br', color: '#5C6469' },
 ]
 
 export default function Login({ onLogin }: Props) {
@@ -68,36 +68,41 @@ export default function Login({ onLogin }: Props) {
               visto
             </span>
           </h1>
-          <p className="text-base leading-relaxed" style={{ color: '#9DB8C5' }}>
-            Pais, alunos, professores e coordenação conectados. Informações claras, comunicação direta, sem complicação.
-          </p>
         </div>
-        <div className="space-y-3">
+        <div>
           <p className="text-xs font-medium uppercase tracking-widest" style={{ color: '#5C8A9B', fontFamily: 'IBM Plex Mono, monospace' }}>
             Contas de demonstração
           </p>
-          {DEMO_CARDS.map(card => (
+          <div className="grid grid-cols-2 gap-2 mt-3">
+            {DEMO_CARDS.map(card => (
             <button
               key={card.email}
               onClick={() => handleDemoLogin(card.email)}
-              className="w-full text-left px-4 py-3 rounded-lg transition-all"
+              className="px-3 py-3 rounded-lg text-center transition-all"
               style={{ backgroundColor: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)' }}
               onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.12)')}
               onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)')}
             >
-              <div className="flex items-center gap-2 mb-0.5">
-                <span className="text-xs font-semibold px-2 py-0.5 rounded" style={{ backgroundColor: card.color, color: '#fff', fontFamily: 'IBM Plex Mono, monospace' }}>
-                  {card.label}
-                </span>
-              </div>
-              <p className="text-sm" style={{ color: '#C5D8E0' }}>{card.desc}</p>
+              <span className="text-xs font-semibold" style={{ color: '#C5D8E0', fontFamily: 'IBM Plex Mono, monospace' }}>
+                {card.label}
+              </span>
             </button>
-          ))}
+            ))}
+          </div>
         </div>
       </aside>
 
       {/* Right panel — form */}
-      <div className="flex-1 flex items-center justify-center p-6">
+      <div className="relative flex-1 flex items-center justify-center p-6">
+        <button
+          type="button"
+          className="absolute top-6 right-6 w-9 h-9 shrink-0 rounded-lg flex items-center justify-center"
+          style={{ backgroundColor: '#EEF2FF', color: '#4E7AF7', border: '1px solid #D9E2FF' }}
+          aria-label="Recursos de acessibilidade"
+          title="Acessibilidade"
+        >
+          <Accessibility size={18} />
+        </button>
         <div className="w-full max-w-sm">
           <div className="flex items-center gap-3 mb-8 md:hidden">
             <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#EAF3F7' }}>
@@ -109,7 +114,7 @@ export default function Login({ onLogin }: Props) {
           <div className="bg-white rounded-xl p-6" style={{ border: '1px solid #E4E2DD', boxShadow: '0 1px 4px rgba(0,0,0,0.06)' }}>
             <div className="flex items-center gap-4 mb-6">
               <img src={logoSemSlogan} alt="Visto" className="h-16 w-24 object-contain shrink-0" />
-              <div>
+              <div className="flex-1">
                 <h2 className="text-xl font-bold mb-1" style={{ color: '#23292E', fontFamily: 'Lexend, sans-serif' }}>Entrar na sua conta</h2>
                 <p className="text-sm leading-snug" style={{ color: '#5C6469' }}>Use o e-mail e senha fornecidos pela escola.</p>
               </div>
@@ -197,23 +202,24 @@ export default function Login({ onLogin }: Props) {
           </div>
 
           {/* Mobile demo cards */}
-          <div className="mt-6 md:hidden space-y-2">
+          <div className="mt-6 md:hidden">
             <p className="text-xs font-medium mb-2" style={{ color: '#5C6469', fontFamily: 'IBM Plex Mono, monospace' }}>
               CONTAS DE DEMONSTRAÇÃO
             </p>
-            {DEMO_CARDS.map(card => (
+            <div className="grid grid-cols-2 gap-2">
+              {DEMO_CARDS.map(card => (
               <button
                 key={card.email}
                 onClick={() => handleDemoLogin(card.email)}
-                className="w-full text-left px-4 py-3 rounded-lg bg-white flex items-center gap-3"
-                style={{ border: '1px solid #E4E2DD' }}
+                className="px-3 py-3 rounded-lg bg-white text-center"
+                style={{ border: '1px solid #E4E2DD', color: card.color }}
               >
-                <span className="text-xs font-semibold px-2 py-0.5 rounded shrink-0" style={{ backgroundColor: card.color, color: '#fff' }}>
+                <span className="text-sm font-semibold">
                   {card.label}
                 </span>
-                <span className="text-sm" style={{ color: '#5C6469' }}>{card.desc}</span>
               </button>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>

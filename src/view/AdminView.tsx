@@ -41,7 +41,7 @@ export default function AdminView({ user, todos_usuarios, alunos, turmas, regist
     return (
       <div>
         <PageHeader title="Painel Geral" subtitle="Visão consolidada da escola" />
-        <div className="px-6 py-5 space-y-6 max-w-4xl">
+        <div className="px-6 py-5 space-y-6 max-w-4xl mx-auto">
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {[
@@ -135,7 +135,7 @@ export default function AdminView({ user, todos_usuarios, alunos, turmas, regist
     return (
       <div>
         <PageHeader title="Alertas Importantes" subtitle="Registros urgentes de toda a escola" />
-        <div className="px-6 py-5 max-w-2xl space-y-3">
+        <div className="px-6 py-5 max-w-2xl mx-auto space-y-3">
           {alertasImportantes.length === 0 ? (
             <Card className="p-8 text-center">
               <CheckCircle2 size={28} className="mx-auto mb-2" style={{ color: '#3D6E52' }} />
@@ -178,7 +178,7 @@ function GestaoUsuarios({ usuarios, alunos }: { usuarios: User[]; alunos: Aluno[
   return (
     <div>
       <PageHeader title="Usuários" subtitle={`${usuarios.length} usuários cadastrados`} />
-      <div className="px-6 py-5 max-w-3xl">
+      <div className="px-6 py-5 max-w-3xl mx-auto">
         <div className="flex gap-2 mb-5 flex-wrap">
           {['todos', 'responsavel', 'aluno', 'professor', 'admin'].map(r => (
             <button key={r} onClick={() => setFiltro(r)}
@@ -223,7 +223,7 @@ function GestaoTurmas({ turmas, alunos, todos_usuarios }: { turmas: Turma[]; alu
   return (
     <div>
       <PageHeader title="Turmas" subtitle={`${turmas.length} turmas cadastradas`} />
-      <div className="px-6 py-5 max-w-3xl space-y-4">
+      <div className="px-6 py-5 max-w-3xl mx-auto space-y-4">
         {turmas.map(turma => {
           const alunosDaTurma = alunos.filter(a => a.turmaId === turma.id)
           const professoresDaTurma = todos_usuarios.filter(u => turma.professorIds.includes(u.id))

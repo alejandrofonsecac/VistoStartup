@@ -1,4 +1,4 @@
-import { GraduationCap, Home, Clock, BookOpen, MessageCircle, Bell, PenLine, Megaphone, LayoutDashboard, Users, School, AlertTriangle, LogOut, CalendarDays, ClipboardCheck } from 'lucide-react'
+import { GraduationCap, Home, Clock, BookOpen, MessageCircle, Bell, PenLine, Megaphone, LayoutDashboard, Users, School, AlertTriangle, LogOut, CalendarDays, ClipboardCheck, Accessibility } from 'lucide-react'
 import type { User, ViewName } from '../types'
 
 interface NavItem {
@@ -78,10 +78,21 @@ export default function Layout({ user, currentView, onViewChange, onLogout, unre
       >
         {/* Logo */}
         <div className="px-5 py-5 flex items-center gap-3" style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-          <div className="w-8 h-8 rounded-md flex items-center justify-center shrink-0" style={{ backgroundColor: '#3F6C7A' }}>
-            <GraduationCap size={16} color="#fff" />
+          <div className="w-8 h-8 rounded-md flex items-center justify-center shrink-0" style={{ backgroundColor: '#EAF3F7' }}>
+            <GraduationCap size={17} color="#1B3A4B" fill="#F8D238" />
           </div>
-          <span className="text-white font-semibold text-sm" style={{ fontFamily: 'Lexend, sans-serif' }}>EscolaConecta</span>
+          <span
+            className="font-semibold text-sm"
+            style={{
+              fontFamily: 'Lexend, sans-serif',
+              backgroundImage: 'linear-gradient(90deg, #FFFFFF 0%, #F8D238 100%)',
+              WebkitBackgroundClip: 'text',
+              backgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}
+          >
+            Visto
+          </span>
         </div>
 
         {/* Nav */}
@@ -137,10 +148,22 @@ export default function Layout({ user, currentView, onViewChange, onLogout, unre
         {/* Mobile header */}
         <header className="md:hidden sticky top-0 z-20 flex items-center justify-between px-4 h-14 bg-white" style={{ borderBottom: '1px solid #E4E2DD' }}>
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-md flex items-center justify-center" style={{ backgroundColor: '#1B3A4B' }}>
-              <GraduationCap size={14} color="#fff" />
+            <div className="w-7 h-7 rounded-md flex items-center justify-center" style={{ backgroundColor: '#EAF3F7' }}>
+              <GraduationCap size={15} color="#1B3A4B" fill="#F8D238" />
             </div>
-            <span className="font-semibold text-sm" style={{ color: '#1B3A4B', fontFamily: 'Lexend, sans-serif' }}>EscolaConecta</span>
+            <span
+              className="font-semibold text-sm px-1.5 py-0.5 rounded"
+              style={{
+                fontFamily: 'Lexend, sans-serif',
+                backgroundColor: '#1B3A4B',
+                backgroundImage: 'linear-gradient(90deg, #FFFFFF 0%, #F8D238 100%)',
+                WebkitBackgroundClip: 'text',
+                backgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}
+            >
+              Visto
+            </span>
           </div>
           <div className="flex items-center gap-2">
             {unreadCount > 0 && (
@@ -193,10 +216,27 @@ export default function Layout({ user, currentView, onViewChange, onLogout, unre
 // Reusable page header
 export function PageHeader({ title, subtitle }: { title: string; subtitle?: string }) {
   return (
-    <div className="px-6 pt-8 pb-6" style={{ borderBottom: '1px solid #E4E2DD' }}>
-      <h1 className="text-2xl font-bold" style={{ color: '#23292E', fontFamily: 'Lexend, sans-serif' }}>{title}</h1>
-      {subtitle && <p className="mt-1 text-sm" style={{ color: '#5C6469' }}>{subtitle}</p>}
+    <div className="flex items-start justify-between gap-4 px-6 pt-8 pb-6" style={{ borderBottom: '1px solid #E4E2DD' }}>
+      <div>
+        <h1 className="text-2xl font-bold" style={{ color: '#23292E', fontFamily: 'Lexend, sans-serif' }}>{title}</h1>
+        {subtitle && <p className="mt-1 text-sm" style={{ color: '#5C6469' }}>{subtitle}</p>}
+      </div>
+      <AccessibilityButton />
     </div>
+  )
+}
+
+export function AccessibilityButton() {
+  return (
+    <button
+      type="button"
+      className="w-9 h-9 shrink-0 rounded-lg flex items-center justify-center transition-colors"
+      style={{ backgroundColor: '#EEF2FF', color: '#4E7AF7', border: '1px solid #D9E2FF' }}
+      aria-label="Recursos de acessibilidade"
+      title="Acessibilidade"
+    >
+      <Accessibility size={18} />
+    </button>
   )
 }
 

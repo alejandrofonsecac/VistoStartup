@@ -32,7 +32,7 @@ export default function ProfessorView({
     return (
       <div>
         <PageHeader title="Minhas Turmas" subtitle={`${user.materia ? `${user.materia} · ` : ''}${meusAlunos.length} alunos em ${minhasTurmas.length} turma(s)`} />
-        <div className="px-6 py-5 space-y-5 max-w-3xl">
+        <div className="px-6 py-5 space-y-5 max-w-3xl mx-auto">
           {minhasTurmas.map(turma => {
             const alunosDaTurma = meusAlunos.filter(a => a.turmaId === turma.id)
             return (

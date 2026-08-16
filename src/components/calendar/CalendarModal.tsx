@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { ArrowLeft, CalendarDays, Clock3, UserRound, X } from 'lucide-react'
 import type { CalendarEvent } from '../../types'
 import { CALENDAR_EVENT_META } from '../../data/calendarEvents'
+import { AccessibilityButton } from '../Layout'
 import CalendarMonth, { parseDateKey } from './CalendarMonth'
 
 interface Props {
@@ -97,7 +98,10 @@ export default function CalendarModal({ studentName, isOpen, month, events, sele
       <section role="dialog" aria-modal="true" aria-labelledby="calendar-modal-title" className="relative z-10 w-full max-w-6xl max-h-[92vh] overflow-y-auto bg-white rounded-xl" style={{ border: '1px solid #E4E2DD', boxShadow: '0 18px 48px rgba(27,58,75,0.18)' }} onMouseDown={event => event.stopPropagation()}>
         <header className="sticky top-0 z-10 flex items-center justify-between px-5 py-4 bg-white" style={{ borderBottom: '1px solid #E4E2DD' }}>
           <div><h2 id="calendar-modal-title" className="text-lg font-semibold" style={{ color: '#23292E', fontFamily: 'Lexend, sans-serif' }}>Calendário</h2><p className="text-xs mt-0.5" style={{ color: '#5C6469' }}>Agenda de {studentName}</p></div>
-          <button type="button" onClick={onClose} aria-label="Fechar calendário" className="p-2 rounded-md transition-colors hover:bg-[#F7F6F3]" style={{ color: '#5C6469' }}><X size={20} /></button>
+          <div className="flex items-center gap-2">
+            <AccessibilityButton />
+            <button type="button" onClick={onClose} aria-label="Fechar calendário" className="p-2 rounded-md transition-colors hover:bg-[#F7F6F3]" style={{ color: '#5C6469' }}><X size={20} /></button>
+          </div>
         </header>
         <div className="grid lg:grid-cols-[minmax(0,1fr)_20rem]">
           <div className="p-5 sm:p-7"><CalendarMonth month={month} events={events} selectedDate={selectedDate} onMonthChange={onMonthChange} onSelectDate={onSelectDate} /></div>

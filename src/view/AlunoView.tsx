@@ -39,7 +39,7 @@ export default function AlunoView({
           title={`Olá, ${user.nome.split(' ')[0]}`}
           subtitle={aluno ? `${aluno.turmaLabel} — Bem-vindo ao sistema escolar` : 'Bem-vindo ao sistema escolar'}
         />
-        <div className="px-6 py-6 space-y-5 max-w-2xl">
+        <div className="px-6 py-6 space-y-5 max-w-2xl mx-auto">
           {/* Avisos recentes */}
           {recentes.length > 0 && (
             <div>
@@ -128,7 +128,7 @@ export default function AlunoView({
     return (
       <div>
         <PageHeader title="Tarefas" subtitle="Trabalhos e atividades ordenados por prazo" />
-        <div className="px-6 py-5 max-w-2xl">
+        <div className="px-6 py-5 max-w-2xl mx-auto">
           {/* Pendentes */}
           <div className="space-y-3 mb-6">
             {pendentes.length === 0 && (
@@ -217,7 +217,7 @@ export default function AlunoView({
     return (
       <div>
         <PageHeader title="Avisos" subtitle="Recados dos professores e da escola" />
-        <div className="px-6 py-5 space-y-3 max-w-2xl">
+        <div className="px-6 py-5 space-y-3 max-w-2xl mx-auto">
           {avisosAluno.length === 0 && <p className="text-sm py-8 text-center" style={{ color: '#5C6469' }}>Nenhum aviso no momento.</p>}
           {avisosAluno.map(av => {
             const novo = !avisosVistos.has(av.id)

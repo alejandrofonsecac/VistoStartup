@@ -107,11 +107,13 @@ export default function Login({ onLogin }: Props) {
           </div>
 
           <div className="bg-white rounded-xl p-6" style={{ border: '1px solid #E4E2DD', boxShadow: '0 1px 4px rgba(0,0,0,0.06)' }}>
-            <div className="flex justify-center mb-4">
-              <img src={logoSemSlogan} alt="Visto" className="h-20 w-auto object-contain" />
+            <div className="flex items-center gap-4 mb-6">
+              <img src={logoSemSlogan} alt="Visto" className="h-16 w-24 object-contain shrink-0" />
+              <div>
+                <h2 className="text-xl font-bold mb-1" style={{ color: '#23292E', fontFamily: 'Lexend, sans-serif' }}>Entrar na sua conta</h2>
+                <p className="text-sm leading-snug" style={{ color: '#5C6469' }}>Use o e-mail e senha fornecidos pela escola.</p>
+              </div>
             </div>
-            <h2 className="text-2xl font-bold mb-1" style={{ color: '#23292E', fontFamily: 'Lexend, sans-serif' }}>Entrar na sua conta</h2>
-            <p className="text-sm mb-6" style={{ color: '#5C6469' }}>Use o e-mail e senha fornecidos pela escola.</p>
 
             <form onSubmit={handleLogin} className="space-y-4">
               <div>

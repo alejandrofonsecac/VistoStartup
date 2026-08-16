@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { GraduationCap, Eye, EyeOff, AlertCircle, Accessibility } from 'lucide-react';
+import { Eye, EyeOff, AlertCircle, Accessibility } from 'lucide-react';
 import { CREDENCIAIS, USUARIOS } from '../data';
 import type { User } from '../types';
 import logoSemSlogan from '../images/LogoSemSlogan.png';
@@ -48,24 +48,24 @@ export default function Login({ onLogin }: Props) {
       {/* Left panel */}
       <aside className="hidden md:flex flex-col justify-between w-80 lg:w-[28rem] p-10 shrink-0" style={{ backgroundColor: '#1B3A4B' }}>
         <div>
-          <div className="flex items-center gap-3 mb-10">
-            <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#EAF3F7' }}>
-              <GraduationCap size={23} color="#1B3A4B" fill="#F8D238" />
-            </div>
-            <span className="text-white text-lg font-semibold" style={{ fontFamily: 'Lexend, sans-serif' }}>Visto</span>
+          <div className="flex justify-center mb-10">
+            <img src={logoSemSlogan} alt="Visto" className="h-40 w-88 object-contain" />
           </div>
           <h1 className="text-3xl font-bold text-white mb-4 leading-tight" style={{ fontFamily: 'Lexend, sans-serif' }}>
-            <span style={{ color: '#4E7AF7' }}>Todo esforço merece ser </span>
-            <span
-              style={{
-                color: '#F8D238',
-                backgroundImage: 'linear-gradient(90deg, #FFFFFF 0%, #F8D238 100%)',
-                WebkitBackgroundClip: 'text',
-                backgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
-              visto
+            <span className="block text-center" style={{ color: '#4E7AF7' }}>Todo esforço merece</span>
+            <span className="block text-center">
+              <span style={{ color: '#4E7AF7' }}>ser </span>
+              <span
+                style={{
+                  color: '#F8D238',
+                  backgroundImage: 'linear-gradient(90deg, #FFFFFF 0%, #F8D238 100%)',
+                  WebkitBackgroundClip: 'text',
+                  backgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                }}
+              >
+                visto
+              </span>
             </span>
           </h1>
         </div>
@@ -104,20 +104,14 @@ export default function Login({ onLogin }: Props) {
           <Accessibility size={18} />
         </button>
         <div className="w-full max-w-sm">
-          <div className="flex items-center gap-3 mb-8 md:hidden">
-            <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#EAF3F7' }}>
-              <GraduationCap size={19} color="#1B3A4B" fill="#F8D238" />
-            </div>
-            <span className="text-lg font-semibold" style={{ color: '#1B3A4B', fontFamily: 'Lexend, sans-serif' }}>Visto</span>
+          <div className="flex justify-center mb-8 md:hidden">
+            <img src={logoSemSlogan} alt="Visto" className="h-28 w-52 object-contain" />
           </div>
 
           <div className="bg-white rounded-xl p-6" style={{ border: '1px solid #E4E2DD', boxShadow: '0 1px 4px rgba(0,0,0,0.06)' }}>
-            <div className="flex items-center gap-4 mb-6">
-              <img src={logoSemSlogan} alt="Visto" className="h-16 w-24 object-contain shrink-0" />
-              <div className="flex-1">
-                <h2 className="text-xl font-bold mb-1" style={{ color: '#23292E', fontFamily: 'Lexend, sans-serif' }}>Entrar na sua conta</h2>
-                <p className="text-sm leading-snug" style={{ color: '#5C6469' }}>Use o e-mail e senha fornecidos pela escola.</p>
-              </div>
+            <div className="mb-6">
+              <h2 className="text-xl font-bold mb-1" style={{ color: '#23292E', fontFamily: 'Lexend, sans-serif' }}>Entrar na sua conta</h2>
+              <p className="text-sm leading-snug" style={{ color: '#5C6469' }}>Use o e-mail e senha fornecidos pela escola.</p>
             </div>
 
             <form onSubmit={handleLogin} className="space-y-4">

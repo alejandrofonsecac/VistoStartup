@@ -1,5 +1,6 @@
-import { GraduationCap, Home, Clock, BookOpen, MessageCircle, Bell, PenLine, Megaphone, LayoutDashboard, Users, School, AlertTriangle, LogOut, CalendarDays, ClipboardCheck, Accessibility } from 'lucide-react'
+import { Home, Clock, BookOpen, MessageCircle, Bell, PenLine, Megaphone, LayoutDashboard, Users, School, AlertTriangle, LogOut, CalendarDays, ClipboardCheck, Accessibility } from 'lucide-react'
 import type { User, ViewName } from '../types'
+import logoSemSlogan from '../images/LogoSemSlogan.png'
 
 interface NavItem {
   view: ViewName
@@ -77,22 +78,8 @@ export default function Layout({ user, currentView, onViewChange, onLogout, unre
         style={{ backgroundColor: '#1B3A4B' }}
       >
         {/* Logo */}
-        <div className="px-5 py-5 flex items-center gap-3" style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-          <div className="w-8 h-8 rounded-md flex items-center justify-center shrink-0" style={{ backgroundColor: '#EAF3F7' }}>
-            <GraduationCap size={17} color="#1B3A4B" fill="#F8D238" />
-          </div>
-          <span
-            className="font-semibold text-sm"
-            style={{
-              fontFamily: 'Lexend, sans-serif',
-              backgroundImage: 'linear-gradient(90deg, #FFFFFF 0%, #F8D238 100%)',
-              WebkitBackgroundClip: 'text',
-              backgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}
-          >
-            Visto
-          </span>
+        <div className="flex justify-center px-5 py-3" style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+          <img src={logoSemSlogan} alt="Visto" className="h-18 w-26 object-contain" />
         </div>
 
         {/* Nav */}
@@ -147,23 +134,8 @@ export default function Layout({ user, currentView, onViewChange, onLogout, unre
       <div className="flex-1 flex flex-col md:ml-60 min-h-screen">
         {/* Mobile header */}
         <header className="md:hidden sticky top-0 z-20 flex items-center justify-between px-4 h-14 bg-white" style={{ borderBottom: '1px solid #E4E2DD' }}>
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-md flex items-center justify-center" style={{ backgroundColor: '#EAF3F7' }}>
-              <GraduationCap size={15} color="#1B3A4B" fill="#F8D238" />
-            </div>
-            <span
-              className="font-semibold text-sm px-1.5 py-0.5 rounded"
-              style={{
-                fontFamily: 'Lexend, sans-serif',
-                backgroundColor: '#1B3A4B',
-                backgroundImage: 'linear-gradient(90deg, #FFFFFF 0%, #F8D238 100%)',
-                WebkitBackgroundClip: 'text',
-                backgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
-              Visto
-            </span>
+          <div className="flex justify-center">
+            <img src={logoSemSlogan} alt="Visto" className="h-11 w-28 object-contain" />
           </div>
           <div className="flex items-center gap-2">
             {unreadCount > 0 && (

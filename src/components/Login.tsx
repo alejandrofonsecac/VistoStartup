@@ -1,7 +1,8 @@
-import { useState } from 'react'
-import { GraduationCap, Eye, EyeOff, AlertCircle } from 'lucide-react'
-import { CREDENCIAIS, USUARIOS } from '../data'
-import type { User } from '../types'
+import { useState } from 'react';
+import { GraduationCap, Eye, EyeOff, AlertCircle } from 'lucide-react';
+import { CREDENCIAIS, USUARIOS } from '../data';
+import type { User } from '../types';
+import logoSemSlogan from '../images/LogoSemSlogan.png';
 
 interface Props {
   onLogin: (user: User) => void
@@ -45,16 +46,27 @@ export default function Login({ onLogin }: Props) {
   return (
     <div className="min-h-screen flex flex-col md:flex-row" style={{ backgroundColor: '#F7F6F3' }}>
       {/* Left panel */}
-      <div className="hidden md:flex flex-col justify-between w-80 lg:w-96 p-10 shrink-0" style={{ backgroundColor: '#1B3A4B' }}>
+      <aside className="hidden md:flex flex-col justify-between w-80 lg:w-[28rem] p-10 shrink-0" style={{ backgroundColor: '#1B3A4B' }}>
         <div>
           <div className="flex items-center gap-3 mb-10">
-            <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#3F6C7A' }}>
-              <GraduationCap size={22} color="#fff" />
+            <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#EAF3F7' }}>
+              <GraduationCap size={23} color="#1B3A4B" fill="#F8D238" />
             </div>
-            <span className="text-white text-lg font-semibold" style={{ fontFamily: 'Lexend, sans-serif' }}>EscolaConecta</span>
+            <span className="text-white text-lg font-semibold" style={{ fontFamily: 'Lexend, sans-serif' }}>Visto</span>
           </div>
           <h1 className="text-3xl font-bold text-white mb-4 leading-tight" style={{ fontFamily: 'Lexend, sans-serif' }}>
-            Acompanhamento escolar em um único lugar
+            <span style={{ color: '#4E7AF7' }}>Todo esforço merece ser </span>
+            <span
+              style={{
+                color: '#F8D238',
+                backgroundImage: 'linear-gradient(90deg, #FFFFFF 0%, #F8D238 100%)',
+                WebkitBackgroundClip: 'text',
+                backgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}
+            >
+              visto
+            </span>
           </h1>
           <p className="text-base leading-relaxed" style={{ color: '#9DB8C5' }}>
             Pais, alunos, professores e coordenação conectados. Informações claras, comunicação direta, sem complicação.
@@ -82,19 +94,22 @@ export default function Login({ onLogin }: Props) {
             </button>
           ))}
         </div>
-      </div>
+      </aside>
 
       {/* Right panel — form */}
       <div className="flex-1 flex items-center justify-center p-6">
-        <div className="w-full max-w-md">
+        <div className="w-full max-w-sm">
           <div className="flex items-center gap-3 mb-8 md:hidden">
-            <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#1B3A4B' }}>
-              <GraduationCap size={18} color="#fff" />
+            <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#EAF3F7' }}>
+              <GraduationCap size={19} color="#1B3A4B" fill="#F8D238" />
             </div>
-            <span className="text-lg font-semibold" style={{ color: '#1B3A4B', fontFamily: 'Lexend, sans-serif' }}>EscolaConecta</span>
+            <span className="text-lg font-semibold" style={{ color: '#1B3A4B', fontFamily: 'Lexend, sans-serif' }}>Visto</span>
           </div>
 
-          <div className="bg-white rounded-xl p-8" style={{ border: '1px solid #E4E2DD', boxShadow: '0 1px 4px rgba(0,0,0,0.06)' }}>
+          <div className="bg-white rounded-xl p-6" style={{ border: '1px solid #E4E2DD', boxShadow: '0 1px 4px rgba(0,0,0,0.06)' }}>
+            <div className="flex justify-center mb-4">
+              <img src={logoSemSlogan} alt="Visto" className="h-20 w-auto object-contain" />
+            </div>
             <h2 className="text-2xl font-bold mb-1" style={{ color: '#23292E', fontFamily: 'Lexend, sans-serif' }}>Entrar na sua conta</h2>
             <p className="text-sm mb-6" style={{ color: '#5C6469' }}>Use o e-mail e senha fornecidos pela escola.</p>
 
@@ -109,7 +124,7 @@ export default function Login({ onLogin }: Props) {
                   onChange={e => setEmail(e.target.value)}
                   placeholder="seu@email.com.br"
                   required
-                  className="w-full px-4 py-3 rounded-lg text-sm transition-colors"
+                  className="w-full px-4 py-2.5 rounded-lg text-sm transition-colors"
                   style={{
                     border: '1px solid #E4E2DD',
                     backgroundColor: '#FAFAFA',
@@ -132,7 +147,7 @@ export default function Login({ onLogin }: Props) {
                     onChange={e => setSenha(e.target.value)}
                     placeholder="••••••••"
                     required
-                    className="w-full px-4 py-3 rounded-lg text-sm pr-12 transition-colors"
+                    className="w-full px-4 py-2.5 rounded-lg text-sm pr-12 transition-colors"
                     style={{
                       border: '1px solid #E4E2DD',
                       backgroundColor: '#FAFAFA',
@@ -164,7 +179,7 @@ export default function Login({ onLogin }: Props) {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3 rounded-lg text-white font-semibold text-sm transition-all"
+                className="w-full py-2.5 rounded-lg text-white font-semibold text-sm transition-all"
                 style={{ backgroundColor: loading ? '#3F6C7A' : '#1B3A4B', opacity: loading ? 0.8 : 1 }}
               >
                 {loading ? 'Entrando...' : 'Entrar'}

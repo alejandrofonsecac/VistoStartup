@@ -23,6 +23,7 @@ function getNavItems(role: string): NavItem[] {
     case 'aluno':
       return [
         { view: 'inicio', label: 'Início', icon: <Home size={18} /> },
+        { view: 'timeline', label: 'Histórico', icon: <Clock size={18} /> },
         { view: 'tarefas', label: 'Tarefas', icon: <BookOpen size={18} /> },
         { view: 'avisos', label: 'Avisos', icon: <Bell size={18} /> },
       ]

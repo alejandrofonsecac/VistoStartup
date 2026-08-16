@@ -7,6 +7,7 @@ import Layout from './components/Layout'
 import CalendarModal from './components/calendar/CalendarModal'
 import { dateKey, monthStart, parseDateKey } from './components/calendar/CalendarMonth'
 import ResponsavelView from './view/ResponsavelView'
+import HistoricoView from './view/HistoricoView'
 import AlunoView from './view/AlunoView'
 import ProfessorView from './view/ProfessorView'
 import AdminView from './view/AdminView'
@@ -145,7 +146,14 @@ export default function App() {
       unreadCount={unreadAvisos}
       onOpenCalendar={currentUser.role === 'responsavel' ? () => setIsCalendarOpen(true) : undefined}
     >
-      {currentUser.role === 'responsavel' && (
+      {currentUser.role === 'responsavel' && currentView === 'timeline' ? (
+        <HistoricoView
+          filhos={filhos}
+          filhoSelecionado={selectedStudent?.id ?? ''}
+          onFilhoSelecionado={handleStudentChange}
+          tarefas={tarefas}
+        />
+      ) : currentUser.role === 'responsavel' && (
         <ResponsavelView
           user={currentUser}
           filhos={filhos}
@@ -169,7 +177,14 @@ export default function App() {
         />
       )}
 
-      {currentUser.role === 'aluno' && (
+      {currentUser.role === 'aluno' && currentView === 'timeline' ? (
+        <HistoricoView
+          filhos={alunoLogado ? [alunoLogado] : []}
+          filhoSelecionado={alunoLogado?.id ?? ''}
+          onFilhoSelecionado={() => undefined}
+          tarefas={tarefas}
+        />
+      ) : currentUser.role === 'aluno' && (
         <AlunoView
           user={currentUser}
           aluno={alunoLogado}

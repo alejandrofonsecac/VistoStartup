@@ -1,7 +1,11 @@
 import { useState } from 'react'
 import { CheckCircle2, Circle, BookOpen, AlertTriangle, Bell, Calendar } from 'lucide-react'
-import type { User, Aluno, Tarefa, Aviso, ViewName } from '../types'
+import type { User, Aluno, Tarefa, Aviso, ViewName, CalendarEvent } from '../types'
 import { PageHeader, Card, formatDate, formatDateShort } from '../components/Layout'
+import { dateKey } from '../components/calendar/CalendarMonth'
+import CalendarMini from '../components/calendar/CalendarMini'
+import NextActivityCard from '../components/calendar/NextActivityCard'
+import NotasView from './NotasView'
 
 interface Props {
   user: User
@@ -13,15 +17,26 @@ interface Props {
   onToggleTarefa: (id: string) => void
   onMarcarAvisoVisto: (id: string) => void
   currentView: ViewName
+  calendarEvents: CalendarEvent[]
+  calendarMonth: Date
+  calendarSelectedDate: string
+  onCalendarMonthChange: (month: Date) => void
+  onCalendarDateChange: (date: string) => void
+  onOpenCalendar: () => void
+  onOpenCalendarEvent: (event: CalendarEvent) => void
 }
 
 export default function AlunoView({
   user, aluno, tarefas, avisos, avisosVistos,
   tarefasConcluidas, onToggleTarefa, onMarcarAvisoVisto, currentView,
+  calendarEvents, calendarMonth, calendarSelectedDate, onCalendarMonthChange, onCalendarDateChange, onOpenCalendar, onOpenCalendarEvent,
 }: Props) {
+  const [mostrarConcluidas, setMostrarConcluidas] = useState(false)
+  const hoje = dateKey(new Date())
   const tarefasAluno = tarefas
-    .filter(t => t.turmaId === aluno?.turmaId)
+    .filter(t => t.turmaId === aluno?.turmaId && (!t.alunoId || t.alunoId === aluno?.id))
     .sort((a, b) => a.dataEntrega.localeCompare(b.dataEntrega))
+  const tarefasFuturas = tarefasAluno.filter(t => t.dataEntrega >= hoje)
 
   const avisosAluno = avisos
     .filter(a => a.turmaId === 'todos' || a.turmaId === aluno?.turmaId)
@@ -30,7 +45,7 @@ export default function AlunoView({
   const avisosPendentes = avisosAluno.filter(a => !avisosVistos.has(a.id))
 
   if (currentView === 'inicio') {
-    const proximas = tarefasAluno.filter(t => !tarefasConcluidas.has(t.id)).slice(0, 3)
+    const proximas = tarefasFuturas.filter(t => !tarefasConcluidas.has(t.id)).slice(0, 3)
     const recentes = avisosAluno.slice(0, 2)
 
     return (
@@ -39,7 +54,8 @@ export default function AlunoView({
           title={`Olá, ${user.nome.split(' ')[0]}`}
           subtitle={aluno ? `${aluno.turmaLabel} — Bem-vindo ao sistema escolar` : 'Bem-vindo ao sistema escolar'}
         />
-        <div className="px-6 py-6 space-y-5 max-w-2xl mx-auto">
+        <div className="px-6 py-6 grid gap-5 xl:grid-cols-[minmax(0,1fr)_20rem] items-start">
+          <div className="space-y-5 max-w-2xl">
           {/* Avisos recentes */}
           {recentes.length > 0 && (
             <div>
@@ -115,15 +131,27 @@ export default function AlunoView({
               </div>
             )}
           </div>
+          </div>
+          <div className="space-y-3 xl:sticky xl:top-6">
+            <CalendarMini
+              studentName={aluno?.nome ?? 'aluno'}
+              month={calendarMonth}
+              events={calendarEvents}
+              selectedDate={calendarSelectedDate}
+              onMonthChange={onCalendarMonthChange}
+              onSelectDate={onCalendarDateChange}
+              onOpen={onOpenCalendar}
+            />
+            <NextActivityCard events={calendarEvents} onOpenEvent={onOpenCalendarEvent} />
+          </div>
         </div>
       </div>
     )
   }
 
   if (currentView === 'tarefas') {
-    const pendentes = tarefasAluno.filter(t => !tarefasConcluidas.has(t.id))
-    const concluidas = tarefasAluno.filter(t => tarefasConcluidas.has(t.id))
-    const [mostrarConcluidas, setMostrarConcluidas] = useState(false)
+    const pendentes = tarefasFuturas.filter(t => !tarefasConcluidas.has(t.id))
+    const concluidas = tarefasFuturas.filter(t => tarefasConcluidas.has(t.id))
 
     return (
       <div>
@@ -211,6 +239,10 @@ export default function AlunoView({
         </div>
       </div>
     )
+  }
+
+  if (currentView === 'notas') {
+    return <NotasView filhos={aluno ? [aluno] : []} filhoSelecionado={aluno?.id ?? ''} onFilhoSelecionado={() => undefined} />
   }
 
   if (currentView === 'avisos') {

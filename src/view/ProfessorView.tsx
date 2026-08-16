@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { Users, Plus, Send, CheckCircle2, AlertTriangle, Megaphone } from 'lucide-react'
 import type { User, Aluno, Turma, Registro, Tarefa, Conversa, CategoriaRegistro, ViewName } from '../types'
-import { PageHeader, Card, CategoriaBadge, formatDate, formatTime, formatDateShort } from '../components/Layout'
+import { PageHeader, Card, CategoriaBadge, formatDate, formatTime, formatDateShort, TurmaGradesButton } from '../components/Layout'
 
 interface Props {
   user: User
@@ -37,11 +37,12 @@ export default function ProfessorView({
             const alunosDaTurma = meusAlunos.filter(a => a.turmaId === turma.id)
             return (
               <Card key={turma.id} className="p-5">
-                <div className="flex items-center justify-between mb-4">
-                  <div>
+                <div className="flex items-start justify-between gap-3 mb-4">
+                  <div className="min-w-0">
                     <h2 className="font-bold text-base" style={{ color: '#23292E', fontFamily: 'Lexend, sans-serif' }}>{turma.label}</h2>
                     <p className="text-xs" style={{ color: '#5C6469', fontFamily: 'IBM Plex Mono, monospace' }}>{alunosDaTurma.length} alunos</p>
                   </div>
+                  <TurmaGradesButton className="shrink-0" />
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {alunosDaTurma.map(a => {
@@ -141,7 +142,7 @@ function NovoRegistroForm({ user, alunos, onSubmit }: {
   return (
     <div>
       <PageHeader title="Novo Registro" subtitle="Registre uma observação sobre um aluno" />
-      <div className="px-6 py-5 max-w-xl">
+      <div className="px-4 sm:px-6 py-5 max-w-xl mx-auto">
         {sucesso && (
           <div className="mb-4 flex items-center gap-2 px-4 py-3 rounded-lg" style={{ backgroundColor: '#EEF4F1', border: '1px solid #C5DDD0', color: '#3D6E52' }}>
             <CheckCircle2 size={16} />
@@ -249,7 +250,7 @@ function NovaTarefaForm({ user, turmas, alunos, onSubmit }: {
   return (
     <div>
       <PageHeader title="Nova Tarefa" subtitle="Crie uma atividade ou trabalho para a turma" />
-      <div className="px-6 py-5 max-w-xl">
+      <div className="px-4 sm:px-6 py-5 max-w-xl mx-auto">
         {sucesso && (
           <div className="mb-4 flex items-center gap-2 px-4 py-3 rounded-lg" style={{ backgroundColor: '#EEF4F1', border: '1px solid #C5DDD0', color: '#3D6E52' }}>
             <CheckCircle2 size={16} />
@@ -273,7 +274,7 @@ function NovaTarefaForm({ user, turmas, alunos, onSubmit }: {
                 style={{ border: '1px solid #E4E2DD', backgroundColor: '#FAFAFA', color: '#23292E', outline: 'none' }} />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-semibold mb-1.5" style={{ color: '#23292E' }}>Turma</label>
                 <select value={turmaId} onChange={e => setTurmaId(e.target.value)} required
@@ -332,7 +333,7 @@ function RecadosForm({ user, turmas, onSubmit }: {
   return (
     <div>
       <PageHeader title="Novo Recado" subtitle="Envie um aviso para a turma ou para toda a escola" />
-      <div className="px-6 py-5 max-w-xl">
+      <div className="px-4 sm:px-6 py-5 max-w-xl mx-auto">
         {sucesso && (
           <div className="mb-4 flex items-center gap-2 px-4 py-3 rounded-lg" style={{ backgroundColor: '#EEF4F1', border: '1px solid #C5DDD0', color: '#3D6E52' }}>
             <CheckCircle2 size={16} />
@@ -410,7 +411,7 @@ function ChatProfessor({ conversas, user, alunos, onEnviarMensagem }: {
 
   return (
     <div className="flex flex-col h-[calc(100dvh-8.5rem)] md:h-screen min-h-0 overflow-hidden">
-      <PageHeader title="Chat com a Diretoria" subtitle="Canal direto com a gestão escolar" />
+      <PageHeader title="Chat com a Coordenação" subtitle="Canal direto com a gestão escolar" />
       <div className="flex flex-col md:flex-row flex-1 min-h-0 overflow-hidden mx-4 md:mx-6 my-4 rounded-lg" style={{ border: '1px solid #E4E2DD' }}>
         <div className="flex shrink-0 overflow-x-auto scrollbar-hide border-b md:block md:w-56 md:overflow-y-auto md:border-b-0 md:border-r" style={{ borderColor: '#E4E2DD', backgroundColor: '#FAFAFA' }}>
           {conversas.length === 0 && (
@@ -420,7 +421,7 @@ function ChatProfessor({ conversas, user, alunos, onEnviarMensagem }: {
             <button key={c.id} onClick={() => setConversaSelecionada(c.id)}
               className="min-w-40 shrink-0 text-left px-4 py-3 border-r md:min-w-0 md:w-full md:border-r-0 md:border-b transition-colors"
               style={{ borderBottomColor: '#E4E2DD', backgroundColor: conversaSelecionada === c.id ? '#EEF4F6' : 'transparent' }}>
-              <p className="text-xs font-semibold truncate" style={{ color: '#23292E' }}>Diretoria</p>
+              <p className="text-xs font-semibold truncate" style={{ color: '#23292E' }}>Coordenação</p>
               <p className="text-xs truncate" style={{ color: '#5C6469' }}>{c.diretoriaNome}</p>
             </button>
           ))}
@@ -428,7 +429,7 @@ function ChatProfessor({ conversas, user, alunos, onEnviarMensagem }: {
         {conversa ? (
           <div className="flex-1 flex flex-col min-w-0 min-h-0">
             <div className="min-w-0 px-4 py-3" style={{ borderBottom: '1px solid #E4E2DD' }}>
-              <p className="text-sm font-semibold truncate" style={{ color: '#23292E', fontFamily: 'Lexend, sans-serif' }}>Diretoria</p>
+              <p className="text-sm font-semibold truncate" style={{ color: '#23292E', fontFamily: 'Lexend, sans-serif' }}>Coordenação</p>
               <p className="text-xs truncate" style={{ color: '#5C6469' }}>{conversa.diretoriaNome}</p>
             </div>
             <div className="flex-1 min-h-0 min-w-0 overflow-y-auto px-3 sm:px-4 py-4 space-y-3 chat-scroll scrollbar-hide" style={{ backgroundColor: '#F7F6F3' }}>

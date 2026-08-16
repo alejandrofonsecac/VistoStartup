@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { CheckCircle2, BookOpen, AlertTriangle, Send, User } from 'lucide-react'
 import type { User as UserType, Aluno, Registro, Tarefa, Conversa, Aviso, ViewName, CalendarEvent } from '../types'
 import { PageHeader, Card, CategoriaBadge, formatDate, formatTime, formatDateShort } from '../components/Layout'
+import { dateKey } from '../components/calendar/CalendarMonth'
 import CalendarMini from '../components/calendar/CalendarMini'
 import NextActivityCard from '../components/calendar/NextActivityCard'
 import NotasView from './NotasView'
@@ -37,7 +38,11 @@ export default function ResponsavelView({
   const filho = filhos.find(f => f.id === filhoSelecionado) ?? filhos[0]
 
   const registrosFilho = registros.filter(r => r.alunoId === filhoSelecionado).sort((a, b) => b.dataHora.localeCompare(a.dataHora))
-  const tarefasFilho = tarefas.filter(t => t.turmaId === filho?.turmaId).sort((a, b) => a.dataEntrega.localeCompare(b.dataEntrega))
+  const hoje = dateKey(new Date())
+  const tarefasFilho = tarefas
+    .filter(t => t.turmaId === filho?.turmaId && (!t.alunoId || t.alunoId === filho?.id))
+    .sort((a, b) => a.dataEntrega.localeCompare(b.dataEntrega))
+  const tarefasFuturas = tarefasFilho.filter(t => t.dataEntrega >= hoje)
   const conversasFilho = conversas.filter(c => c.contatoRole === 'responsavel' && c.contatoId === user.id && c.alunoId === filhoSelecionado)
 
   const naoVistos = registrosFilho.filter(r => !r.vistoResponsavel)
@@ -66,7 +71,7 @@ export default function ResponsavelView({
 
   if (currentView === 'inicio') {
     const ultimos = registrosFilho.slice(0, 3)
-    const proximasTarefas = tarefasFilho.slice(0, 3)
+    const proximasTarefas = tarefasFuturas.slice(0, 3)
     const temImportante = registrosFilho.some(r => r.urgencia === 'Importante' && !r.vistoResponsavel)
 
     return (
@@ -242,8 +247,8 @@ export default function ResponsavelView({
         <PageHeader title="Tarefas" subtitle={`Atividades de ${filho?.nome}`} />
         <SeletorFilhos />
         <div className="px-6 py-5 space-y-3 max-w-2xl mx-auto">
-          {tarefasFilho.length === 0 && <p className="text-sm py-8 text-center" style={{ color: '#5C6469' }}>Nenhuma tarefa no momento.</p>}
-          {tarefasFilho.map(t => {
+          {tarefasFuturas.length === 0 && <p className="text-sm py-8 text-center" style={{ color: '#5C6469' }}>Nenhuma tarefa no momento.</p>}
+          {tarefasFuturas.map(t => {
             const dias = Math.ceil((new Date(t.dataEntrega).getTime() - Date.now()) / 86400000)
             const urgente = dias <= 2
             return (
@@ -361,7 +366,7 @@ function ChatResponsavel({ conversas, user, filho, onEnviarMensagem, filhos, fil
 
   return (
     <div className="flex flex-col h-[calc(100dvh-8.5rem)] md:h-screen min-h-0 overflow-hidden">
-      <PageHeader title="Chat com a Diretoria" subtitle="Conversa direta da família com a escola" />
+      <PageHeader title="Chat com a Coordenação" subtitle="Conversa direta da família com a escola" />
       {filhos.length > 1 && (
         <div className="flex flex-wrap gap-2 px-4 sm:px-6 pt-4">
           {filhos.map(f => (
@@ -383,7 +388,7 @@ function ChatResponsavel({ conversas, user, filho, onEnviarMensagem, filhos, fil
             <button key={c.id} onClick={() => setConversaSelecionada(c.id)}
               className="min-w-40 shrink-0 text-left px-4 py-3 border-r md:min-w-0 md:w-full md:border-r-0 md:border-b transition-colors"
               style={{ borderBottomColor: '#E4E2DD', backgroundColor: conversaSelecionada === c.id ? '#EEF4F6' : 'transparent' }}>
-              <p className="text-xs font-semibold truncate" style={{ color: '#23292E' }}>Diretoria</p>
+              <p className="text-xs font-semibold truncate" style={{ color: '#23292E' }}>Coordenação</p>
               <p className="text-xs truncate" style={{ color: '#5C6469' }}>{c.alunoNome.split(' ')[0]}</p>
             </button>
           ))}
@@ -393,7 +398,7 @@ function ChatResponsavel({ conversas, user, filho, onEnviarMensagem, filhos, fil
         {conversa ? (
           <div className="flex-1 flex flex-col min-w-0 min-h-0">
             <div className="min-w-0 px-4 py-3" style={{ borderBottom: '1px solid #E4E2DD' }}>
-              <p className="text-sm font-semibold truncate" style={{ color: '#23292E', fontFamily: 'Lexend, sans-serif' }}>Diretoria</p>
+              <p className="text-sm font-semibold truncate" style={{ color: '#23292E', fontFamily: 'Lexend, sans-serif' }}>Coordenação</p>
               <p className="text-xs truncate" style={{ color: '#5C6469' }}>sobre {conversa.alunoNome}</p>
             </div>
             <div className="flex-1 min-h-0 min-w-0 overflow-y-auto px-3 sm:px-4 py-4 space-y-3 chat-scroll scrollbar-hide" style={{ backgroundColor: '#F7F6F3' }}>

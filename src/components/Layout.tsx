@@ -26,6 +26,8 @@ function getNavItems(role: string): NavItem[] {
         { view: 'inicio', label: 'Início', icon: <Home size={18} /> },
         { view: 'timeline', label: 'Histórico', icon: <Clock size={18} /> },
         { view: 'tarefas', label: 'Tarefas', icon: <BookOpen size={18} /> },
+        { view: 'notas', label: 'Notas', icon: <ClipboardCheck size={18} /> },
+        { view: 'inicio', label: 'Calendário', icon: <CalendarDays size={18} />, calendarAction: true },
         { view: 'avisos', label: 'Avisos', icon: <Bell size={18} /> },
       ]
     case 'professor':
@@ -196,6 +198,19 @@ export function PageHeader({ title, subtitle }: { title: string; subtitle?: stri
       </div>
       <AccessibilityButton />
     </div>
+  )
+}
+
+export function TurmaGradesButton({ className = '' }: { className?: string }) {
+  return (
+    <button
+      type="button"
+      className={`inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#234B60] ${className}`}
+      style={{ backgroundColor: '#1B3A4B' }}
+    >
+      <ClipboardCheck size={16} />
+      Notas da Turma
+    </button>
   )
 }
 

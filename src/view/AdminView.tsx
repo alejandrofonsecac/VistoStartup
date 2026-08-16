@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { AlertTriangle, ArrowLeft, Users, School, CheckCircle2, TrendingUp, Eye, Send } from 'lucide-react'
 import type { User, Aluno, Turma, Registro, Aviso, Conversa, ViewName } from '../types'
-import { PageHeader, Card, CategoriaBadge, formatDate, formatTime } from '../components/Layout'
+import { PageHeader, Card, CategoriaBadge, formatDate, formatTime, TurmaGradesButton } from '../components/Layout'
 
 interface Props {
   user: User
@@ -44,6 +44,9 @@ export default function AdminView({ user, todos_usuarios, alunos, turmas, regist
       <div>
         <PageHeader title="Painel Geral" subtitle="Visão consolidada da escola" />
         <div className="px-6 py-5 space-y-6 max-w-4xl mx-auto">
+          <div className="flex justify-end">
+            <TurmaGradesButton />
+          </div>
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {[
@@ -244,7 +247,7 @@ function ChatDiretoria({ conversas, user, usuarios, alunos, turmas, onEnviarMens
   return (
     <div className="flex flex-col h-[calc(100dvh-8.5rem)] md:h-screen min-h-0 overflow-hidden">
       <div className={mobileChatOpen ? 'hidden md:block' : ''}>
-        <PageHeader title="Chat da Diretoria" subtitle="Conversas com responsáveis e professores" />
+        <PageHeader title="Chat da Coordenação" subtitle="Conversas com responsáveis e professores" />
       </div>
       <div className={`${mobileChatOpen ? 'hidden md:block' : ''} sticky top-0 z-10 shrink-0 bg-[#F7F6F3]`}>
         <div className="flex gap-2 px-4 sm:px-6 pt-4">

@@ -177,7 +177,7 @@ export default function App() {
       onViewChange={handleViewChange}
       onLogout={handleLogout}
       unreadCount={unreadAvisos}
-      onOpenCalendar={currentUser.role === 'responsavel' ? () => setIsCalendarOpen(true) : undefined}
+      onOpenCalendar={currentUser.role === 'responsavel' || currentUser.role === 'aluno' ? () => setIsCalendarOpen(true) : undefined}
     >
       {currentUser.role === 'responsavel' && currentView === 'timeline' ? (
         <HistoricoView
@@ -228,6 +228,13 @@ export default function App() {
           onToggleTarefa={handleToggleTarefa}
           onMarcarAvisoVisto={handleMarcarAvisoVisto}
           currentView={currentView}
+          calendarEvents={calendarEvents}
+          calendarMonth={calendarMonth}
+          calendarSelectedDate={calendarSelectedDate}
+          onCalendarMonthChange={setCalendarMonth}
+          onCalendarDateChange={handleCalendarDateChange}
+          onOpenCalendar={() => setIsCalendarOpen(true)}
+          onOpenCalendarEvent={handleOpenCalendarEvent}
         />
       )}
 
@@ -262,9 +269,9 @@ export default function App() {
         />
       )}
     </Layout>
-    {currentUser.role === 'responsavel' && selectedStudent && (
+    {(currentUser.role === 'responsavel' || currentUser.role === 'aluno') && calendarStudent && (
       <CalendarModal
-        studentName={selectedStudent.nome}
+        studentName={calendarStudent.nome}
         isOpen={isCalendarOpen}
         month={calendarMonth}
         events={calendarEvents}

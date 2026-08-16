@@ -102,6 +102,31 @@ export const TAREFAS_INICIAIS: Tarefa[] = [
     materialNecessario: 'Caderno de Português', turmaId: 't2',
   },
   {
+    id: 'ta6', titulo: 'Revisão para avaliação de Ciências', descricao: 'Revisar os capítulos sobre ecossistemas e preparar um resumo com os conceitos principais.',
+    materia: 'Ciências', professorNome: 'Profa. Lúcia Pires', dataEntrega: '2026-08-29',
+    materialNecessario: 'Caderno de Ciências e livro didático', turmaId: 't1',
+  },
+  {
+    id: 'ta7', titulo: 'Exercícios: Operações com frações', descricao: 'Resolver os exercícios indicados no livro e registrar os cálculos no caderno.',
+    materia: 'Matemática', professorNome: 'Profa. Ana Costa', dataEntrega: '2026-08-19',
+    materialNecessario: 'Livro didático e caderno', turmaId: 't2',
+  },
+  {
+    id: 'ta8', titulo: 'Linha do tempo: Brasil Império', descricao: 'Montar uma linha do tempo com os principais acontecimentos do período estudado.',
+    materia: 'História', professorNome: 'Prof. Marcos Andrade', dataEntrega: '2026-08-22',
+    materialNecessario: 'Folha A3 e canetas coloridas', turmaId: 't2',
+  },
+  {
+    id: 'ta9', titulo: 'Experimento: estados da água', descricao: 'Registrar as etapas e as observações do experimento realizado em sala.',
+    materia: 'Ciências', professorNome: 'Profa. Lúcia Pires', dataEntrega: '2026-08-26',
+    materialNecessario: 'Folha de atividades', turmaId: 't2',
+  },
+  {
+    id: 'ta10', titulo: 'Leitura e interpretação de texto', descricao: 'Ler o texto indicado e responder às perguntas de interpretação.',
+    materia: 'Português', professorNome: 'Prof. Roberto Ferreira', dataEntrega: '2026-09-02',
+    materialNecessario: 'Livro de Português', turmaId: 't2',
+  },
+  {
     id: 'th1', alunoId: 'a1', titulo: 'Produção textual: Crônica', descricao: 'Escrever uma crônica sobre uma situação do cotidiano, com título e revisão ortográfica.',
     materia: 'Português', professorNome: 'Prof. Roberto Ferreira', dataEntrega: '2026-08-10', materialNecessario: 'Caderno de Português', turmaId: 't1', concluida: true, concluidaEm: '2026-08-09',
   },

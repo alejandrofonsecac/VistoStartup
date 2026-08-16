@@ -14,12 +14,16 @@ interface Props {
 
 type HistoryTask = { task: Tarefa; status: 'completed' | 'overdue'; activityDate: string }
 
-function getHistoryTasks(tarefas: Tarefa[], studentId: string): HistoryTask[] {
+function getHistoryTasks(tarefas: Tarefa[], student: Aluno | undefined): HistoryTask[] {
+  if (!student) return []
+
   const today = dateKey(new Date())
   return tarefas.flatMap(task => {
-    if (task.alunoId !== studentId) return []
+    const pertenceAoAluno = task.alunoId === student.id
+    const pertenceATurma = !task.alunoId && task.turmaId === student.turmaId
+    if (!pertenceAoAluno && !pertenceATurma) return []
     if (task.concluida === true) return [{ task, status: 'completed' as const, activityDate: task.concluidaEm ?? task.dataEntrega }]
-    if (task.concluida === false && task.dataEntrega < today) return [{ task, status: 'overdue' as const, activityDate: task.dataEntrega }]
+    if (!task.concluida && task.dataEntrega < today) return [{ task, status: 'overdue' as const, activityDate: task.dataEntrega }]
     return []
   }).sort((a, b) => b.activityDate.localeCompare(a.activityDate))
 }
@@ -32,7 +36,7 @@ export default function HistoricoView({ filhos, filhoSelecionado, onFilhoSelecio
   const [filter, setFilter] = useState<HistoryFilter>('all')
   const [expandedTask, setExpandedTask] = useState<string | null>(null)
   const student = filhos.find(filho => filho.id === filhoSelecionado) ?? filhos[0]
-  const history = getHistoryTasks(tarefas, student?.id ?? '')
+  const history = getHistoryTasks(tarefas, student)
   const counts = { all: history.length, completed: history.filter(item => item.status === 'completed').length, overdue: history.filter(item => item.status === 'overdue').length }
   const filtered = filter === 'all' ? history : history.filter(item => item.status === filter)
   const groups = filtered.reduce<Record<string, HistoryTask[]>>((acc, item) => { const key = item.activityDate.slice(0, 7); acc[key] = [...(acc[key] ?? []), item]; return acc }, {})

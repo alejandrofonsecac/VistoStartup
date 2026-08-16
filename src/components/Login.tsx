@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { Eye, EyeOff, AlertCircle, Accessibility } from 'lucide-react';
+import { ArrowLeft, Eye, EyeOff, AlertCircle, Accessibility } from 'lucide-react';
 import { CREDENCIAIS, USUARIOS } from '../data';
 import type { User } from '../types';
 import logoSemSlogan from '../images/LogoSemSlogan.png';
 
 interface Props {
   onLogin: (user: User) => void
+  onBack?: () => void
 }
 
 const DEMO_CARDS = [
@@ -15,7 +16,7 @@ const DEMO_CARDS = [
   { label: 'Coordenação', email: 'admin@escola.edu.br', color: '#5C6469' },
 ]
 
-export default function Login({ onLogin }: Props) {
+export default function Login({ onLogin, onBack }: Props) {
   const [email, setEmail] = useState('')
   const [senha, setSenha] = useState('')
   const [showSenha, setShowSenha] = useState(false)
@@ -94,6 +95,17 @@ export default function Login({ onLogin }: Props) {
 
       {/* Right panel — form */}
       <div className="relative flex-1 flex items-center justify-center p-6">
+        {onBack && (
+          <button
+            type="button"
+            onClick={onBack}
+            className="absolute top-6 left-6 inline-flex items-center gap-2 text-sm font-semibold"
+            style={{ color: '#3F6C7A' }}
+          >
+            <ArrowLeft size={17} />
+            <span className="hidden sm:inline">Voltar para a apresentação</span>
+          </button>
+        )}
         <button
           type="button"
           className="absolute top-6 right-6 w-9 h-9 shrink-0 rounded-lg flex items-center justify-center"

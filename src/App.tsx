@@ -2,6 +2,7 @@ import { useState } from 'react'
 import type { User, ViewName, Registro, Tarefa, Conversa, Aviso, Mensagem, CalendarEvent } from './types'
 import { USUARIOS, ALUNOS, TURMAS, REGISTROS_INICIAIS, TAREFAS_INICIAIS, CONVERSAS_INICIAIS, AVISOS_INICIAIS } from './data'
 import { CALENDAR_EVENTS, getCalendarEventsForStudent } from './data/calendarEvents'
+import Landing from './components/Landing'
 import Login from './components/Login'
 import Layout from './components/Layout'
 import CalendarModal from './components/calendar/CalendarModal'
@@ -18,6 +19,7 @@ function defaultView(role: string): ViewName {
 }
 
 export default function App() {
+  const [showLanding, setShowLanding] = useState(true)
   const [currentUser, setCurrentUser] = useState<User | null>(null)
   const [currentView, setCurrentView] = useState<ViewName>('inicio')
 
@@ -142,7 +144,9 @@ export default function App() {
   const unreadAvisos = avisos.filter(a => !avisosVistos.has(a.id)).length
 
   if (!currentUser) {
-    return <Login onLogin={handleLogin} />
+    return showLanding
+      ? <Landing onAccess={() => setShowLanding(false)} />
+      : <Login onLogin={handleLogin} onBack={() => setShowLanding(true)} />
   }
 
   const filhos = ALUNOS.filter(a => currentUser.filhosIds?.includes(a.id) ?? false)
